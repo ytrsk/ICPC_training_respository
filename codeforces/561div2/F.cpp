@@ -18,11 +18,13 @@ int read(){
 map<pii,int> aa;
 int fa[maxn];
 int find(int x){
-    return x==fa[x]?x:fa[x]=find(fa[x]);
+    return x==fa[x]?x:find(fa[x]);
 }
 unordered_map<int,int> a[maxn];
+int sz[maxn];
 void merge(int x,int y){
-    fa[x]=y;
+    if(sz[x]>sz[y]) swap(x,y);
+    fa[x]=y;sz[y]+=sz[x];
     for(auto i:a[x]) a[y][i.first]=1;
 }
 void addedge(int u,int v,int x){
@@ -34,7 +36,7 @@ void addedge(int u,int v,int x){
 int main(){
     //cin.tie(0);ios_base::sync_with_stdio(false);
     int n=read(),m=read(),c=read(),q=read();
-    for(int i=1;i<=n;i++) fa[i]=i;
+    for(int i=1;i<=n;i++) fa[i]=i,sz[i]=1;
     for(int i=1;i<=m;i++){
         int u=read(),v=read(),x=read();
         addedge(u,v,x);a[find(u)][v]=a[find(v)][u]=1;
