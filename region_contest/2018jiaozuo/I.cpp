@@ -24,16 +24,16 @@ int main(){
         if(n==1){
             printf("0\n");continue;
         }
-        printf("%d %d",0,a[n]-a[1],n==2?'\n':' ');ll lastl=-a[1],lastr=a[n],last=a[n]-a[1];
+        printf("%d %d%c",0,a[n]-a[1],n==2?'\n':' ');ll lastl=-a[1],lastr=a[n],last=a[n]-a[1];
         for(int i=3;i<=n;i++){
             if(i%2){
-                printf("%lld ",last+sum[n]-sum[n-i/2]-sum[i/2]);
+                printf("%lld%c",last+sum[n]-sum[n-i/2]-sum[i/2],i==n?'\n':' ');
             }
             else{
                 lastl=lastl-2*sum[i/2-1]+1LL*(2*i/2-1-i)*a[i/2];
                 lastr=lastr+2*(sum[n]-sum[n-(i/2-1)])+a[n-(i/2)+1];
                 last=lastl+lastr;
-                printf("%lld",last,i==n?'\n':' ');
+                printf("%lld%c",last,i==n?'\n':' ');
             }
         }
     }
