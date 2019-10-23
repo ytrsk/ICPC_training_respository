@@ -17,7 +17,7 @@ struct bignum{
 		for(int i=a.len;i;i--) if(shu[i]!=a.shu[i]) return shu[i]<a.shu[i];
 		return false;
 	}
-	bool operator == (bignum a){
+	bool operator == (bignum a) const{
 		if(len!=a.len) return false;
 		for(int i=a.len;i;i--) if(shu[i]!=a.shu[i]) return false;
 		return true;
