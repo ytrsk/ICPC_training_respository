@@ -26,8 +26,9 @@ int main(){
     int t=read(),cnt=0;
     while(t--){
         ++cnt;
-        n=read();scanf("%s",s+1);for(int i=1;i<=n;i++) a[i]=s[i]-'0';
+        n=read();scanf("%s",s+1);for(int i=1;i<=n;i++)
         for(int i=1;i<=n;i++){
+            a[i]=s[i]-'0';
             int x=i-1;
             int v=(1LL*x*x+1)%n+1;
             to[i][0]=v;g[i][0]=a[v]+1;

@@ -90,7 +90,6 @@ int main(){
         }
         else if(!(now>b)){
             b.print();
-            printf("asd");
         }
         else{
 
