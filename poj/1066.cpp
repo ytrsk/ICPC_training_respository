@@ -20,67 +20,61 @@ struct point{
 	double operator * (point a){
 		return x*a.x+y*a.y;
 	}
-	inline point operator - (point a){
+	point operator - (point a){
 		return point(x-a.x,y-a.y);
 	}
-	inline point operator + (point a){
+	point operator + (point a){
 		return point(x+a.x,y+a.y);
 	}
-	inline point operator * (double a){
-        return point(x*a,y*a);
-	}
-    inline bool operator == (point a){
+    bool operator == (point a){
         return fabs(x-a.x)<eps&&fabs(y-a.y)<eps;
 	}
-	inline bool operator < (point a){
-        if(fabs(y-a.y)<eps) return x<a.x;
-        return y<a.y;
+	bool operator < (point a){
+        if(fabs(x-a.x)<eps) return y<a.y;
+        return x<a.x;
 	}
 	void print(){
         cout<<x<<" "<<y<<" ";
 	}
-}p[maxn],s;
+}s,p[maxn];
 bool equal0(double x){
-    return fabs(x)<eps;
+    return fabs(x)<1e-7;
 }
 bool equal_num(double x,double y){
     return fabs(x-y)<eps;
 }
 typedef point vec;
-inline double length(point a){
+double length(point a){
     return sqrt(sqr(a.x)+sqr(a.y));
 }
-inline bool parallel(point a,point b,point c,point d){
-    return equal0((b-a)^(d-c));
-}
-inline double dis(point a,point b){
+double dis(point a,point b){
     return length(a-b);
 }
-inline double dot(point a,point b,point c){
+double dot(point a,point b,point c){
     return (a-c)*(b-c);
 }
-inline double mul(point a,point b,point c){
+double mul(point a,point b,point c){
     return (a-c)^(b-c);
 }
-inline bool cmp(point a,point b){
+bool cmp(point a,point b){
     if(fabs(mul(a,b,s))<eps) return dis(a,s)<dis(b,s);
     else return mul(a,b,s)>0;
 }
-inline int sign(double x){
+int sign(double x){
     if(fabs(x)<eps) return 0;
     else if(x>0) return 1;
     else return -1;
 }
 int top;point q[maxn];
-inline void sort_by_angle1(point *p,int n){
+void sort_by_angle1(point *p,int n){
     int pos=1;
     for(int i=2;i<=n;i++){
-        if(p[i].y+eps<p[pos].y||fabs(p[i].y-p[pos].y)<eps&&p[i].x<p[pos].x) pos=i;
+        if(p[i].y<p[pos].y||p[i].y==p[pos].y&&p[i].x<p[pos].x) pos=i;
     }
     swap(p[1],p[pos]);s=p[1];
     sort(p+2,p+n+1,cmp);
 }
-inline void graham(point *p,int n){
+void graham(point *p,int n){
     sort_by_angle1(p,n);
     top=0;
     if(n==1){
@@ -89,43 +83,36 @@ inline void graham(point *p,int n){
     else if(n==2){
         q[++top]=p[1];q[++top]=p[2];return;
     }
-    q[++top]=p[1];q[++top]=p[2];
-    for(int i=3;i<=n;i++){
-        while(top>=2&&mul(p[i],q[top],q[top-1])>-eps) top--;
+    q[++top]=p[1];q[++top]=p[2];q[++top]=p[3];
+    for(int i=4;i<=n;i++){
+        while(top>=2&&mul(p[i],q[top],q[top-1])>=0) top--;
         q[++top]=p[i];
     }
 }
-inline double tri_s(point a,point b,point c){
+double tri_s(point a,point b,point c){
 	return fabs((a-b)^(c-b))/2;
 }
-void sort_by_angle2(point *p,int n,point a){
+void sort_by_angle2(point *p,point a,int n){
     s=a;
     sort(p+1,p+n+1,cmp);
 }
 //intersection of segment and line
+bool parallel(point a,point b,point c,point d){
+    return equal0((b-a)^(d-c));
+}
 bool intersect_line_segment(point a,point b,point c,point d){
     double x=mul(b,c,a)*mul(b,d,a);
-    return x<eps;
+    return !equal0(x)||x<0;
 }
 double dis_point_to_line(point a,point b,point c){
-    double x=mul(b,a,c);
+    double x=mul(c,b,a);
     return fabs(x)/length(b-c);
 }
 bool online(point a,point b,point c){
     return equal0(mul(c,b,a));
 }
 bool onsegment(point a,point b,point c){
-    return online(a,b,c)&&dot(b,c,a)<eps;
-}
-bool onsegment_spec(point a,point b,point c){
-    return online(a,b,c)&&dot(b,c,a)<-eps;
-}
-bool intersect_segment_spec(point a,point b,point c,point d){
-    double x1=mul(b,c,a),x2=mul(b,d,a);
-    double x3=mul(d,a,c),x4=mul(d,b,c);
-    if(equal0(x1)&&equal0(x2)) return onsegment_spec(a,c,d)||onsegment_spec(b,c,d);
-    else if(sign(x1*x2)<0&&sign(x3*x4)<0) return true;
-    else return false;
+    return online(a,b,c)&&sign(dot(b,c,a))<=0;
 }
 bool intersect_segment(point a,point b,point c,point d){
     double x1=mul(b,c,a),x2=mul(b,d,a);
@@ -134,8 +121,23 @@ bool intersect_segment(point a,point b,point c,point d){
     else if(sign(x1*x2)>0||sign(x3*x4)>0) return false;
     else return true;
 }
+bool onsegment_spec(point a,point b,point c){
+    return online(a,b,c)&&sign(dot(b,c,a))<0;
+}
+bool intersect_segment_spec(point a,point b,point c,point d){
+    double x1=mul(b,c,a),x2=mul(b,d,a);
+    double x3=mul(d,a,c),x4=mul(d,b,c);
+    if(equal0(x1)&&equal0(x2)) return onsegment_spec(a,c,d)||onsegment_spec(b,c,d);
+    else if(sign(x1*x2)<0&&sign(x3*x4)<0) return true;
+    else return false;
+}
 point get_intersect_point(point p1,point p2,point p3,point p4){
-    return p1+(p2-p1)*(((p1-p3)^(p4-p3))/((p4-p3)^(p2-p1)));
+    double x1=p1.x,y1=p1.y;
+    double x2=p2.x,y2=p2.y;
+    double x3=p3.x,y3=p3.y;
+    double x4=p4.x,y4=p4.y;
+    double t=((x2-x1)*(y3-y1)-(x3-x1)*(y2-y1))/((x2-x1)*(y3-y4)-(x3-x4)*(y2-y1));
+    return point(x3+t*(x4-x3),y3+t*(y4-y3));
 }
 //probably some eps problem===================================
 inline ppb get_intersect_segment(point a,point b,point c,point d){
@@ -166,29 +168,6 @@ inline pp project_line(point a,point b,point c,point d){
     return make_pair(x,y);
 }
 //==========================================================
-struct segment{
-    point a,b;double ang;
-    double angle(){
-        return atan2(b.y-a.y,b.x-a.x);
-    }
-    segment(point a=point(),point b=point()):a(a),b(b){
-        ang=angle();
-    }
-};
-struct polygon{
-    segment s[21];
-    int num;
-};
-struct circle{
-    point o;
-    double r;
-};
-int circle_to_line(circle a,point b,point c){
-    double x=dis_point_to_line(a.o,b,c);
-    if(fabs(x-a.r)<eps) return 0;
-    else if(x<a.r) return 1;
-    else return -1;
-}
 int read(){
     int x=0,f=1;
     char ch=getchar();
@@ -196,49 +175,25 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
-bool cmp_seg(segment a,segment b){
-    return fabs(a.ang-b.ang)<eps?((a.b-a.a)^(b.b-a.a))<eps:a.ang<b.ang;
-}
-bool point_in_poly(point a,point *p,int n){
-    for(int i=1;i<n;i++){
-        if(mul(p[i],p[i+1],a)<-eps) return false;
-    }
-    return mul(p[n],p[1],a)>-eps;
-}
-inline void clockwise(point *p,int n){
-    double ans=0;
-    for(int i=2;i<=n;i++) ans+=mul(p[i-1],p[i],p[1]);
-    if(ans<0) reverse(p+1,p+n+1);
-}
-double poly_area(point *p,int n){
-    double ans=0;
-    for(int i=1;i<=n;i++) ans+=p[i]^p[i%n+1];
-    return fabs(0.5*ans);
-}
-segment qs[maxn];point qp[maxn];
-inline bool SI(segment *s,int n,point *res,int &m){
-    sort(s+1,s+n+1,cmp_seg);
-    int ql=1,qr=0;
-    qs[++qr]=s[1];
-    for(int i=2;i<=n;i++){
-        if(fabs(s[i].ang-s[i-1].ang)>eps){
-            while(ql<qr&&mul(s[i].b,qp[qr-1],s[i].a)<-eps) --qr;
-            while(ql<qr&&mul(s[i].b,qp[ql],s[i].a)<-eps) ++ql;
-            qp[qr]=get_intersect_point(qs[qr].a,qs[qr].b,s[i].a,s[i].b);
-            qs[++qr]=s[i];
-            if(parallel(qs[qr-1].a,qs[qr-1].b,qs[qr].a,qs[qr].b))
-            return false;
-        }
-    }
-    while(ql<qr&&mul(qs[ql].b,qp[qr-1],qs[ql].a)<-eps) --qr;
-    while(ql<qr&&mul(qs[qr].b,qp[ql],qs[qr].a)<-eps) ++ql;
-    if(qr<=ql+1) return false;
-    qp[qr]=get_intersect_point(qs[ql].a,qs[ql].b,qs[qr].a,qs[qr].b);
-    m=0;for(int i=ql;i<=qr;i++) res[++m]=qp[i];
-    return true;
-}
-segment seg[maxn];
-point res[maxn];int m;
+int n;
 int main(){
+    n=read();
+    for(int i=1;i<=n;i++){
+        scanf("%lf%lf%lf%lf",&p[i*2-1].x,&p[i*2-1].y,&p[i*2].x,&p[i*2].y);
+    }
+    double x,y;scanf("%lf%lf",&x,&y);
+    int mx=10000007;
+    if(n==0) mx=0;
+    for(int i=1;i<=2*n;i++){
+        int ans=0;
+        for(int k=1;k<=n;k++){
+            if(intersect_segment_spec(point(x,y),p[i],p[k*2-1],p[k*2])) ans++;
+        }
+        mx=min(mx,ans);
+        /*if(ans==2){
+            printf("%d %f %f\n",i,p[i].x,p[i].y);
+        }*/
+    }
+    printf("Number of doors = %d\n",mx+1);
     return 0;
 }

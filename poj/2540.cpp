@@ -237,8 +237,44 @@ inline bool SI(segment *s,int n,point *res,int &m){
     m=0;for(int i=ql;i<=qr;i++) res[++m]=qp[i];
     return true;
 }
-segment seg[maxn];
-point res[maxn];int m;
+char S[30];
+segment seg[maxn];point res[maxn];
 int main(){
+    point now=point(0,0);
+    seg[1]=segment(point(0,0),point(10,0));
+    seg[2]=segment(point(10,0),point(10,10));
+    seg[3]=segment(point(10,10),point(0,10));
+    seg[4]=segment(point(0,10),point(0,0));
+    double x,y;
+    int m;
+    int ok=0,cnt=0;
+    while(scanf("%lf%lf",&x,&y)==2){
+        scanf("%s",S+1);
+        if(ok){
+            printf("0.00\n");continue;
+        }
+        if(S[1]=='S'){
+            ok=1;
+            printf("0.00\n");continue;
+        }
+        else if(S[1]=='C'){
+            point M=point((now.x+x)/2,(now.y+y)/2);
+            point D=point(x,y)-now;
+            point Z=point(-D.y,D.x);
+            ++cnt;
+            seg[4+cnt]=segment(M,M+Z);
+            SI(seg,4+cnt,res,m);
+        }
+        else{
+            point M=point((now.x+x)/2,(now.y+y)/2);
+            point D=point(x,y)-now;
+            point Z=point(D.y,-D.x);
+            ++cnt;
+            seg[4+cnt]=segment(M,M+Z);
+            SI(seg,4+cnt,res,m);
+        }
+        printf("%.2f\n",poly_area(res,m)+eps);
+        now=point(x,y);
+    }
     return 0;
 }

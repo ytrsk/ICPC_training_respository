@@ -237,8 +237,20 @@ inline bool SI(segment *s,int n,point *res,int &m){
     m=0;for(int i=ql;i<=qr;i++) res[++m]=qp[i];
     return true;
 }
-segment seg[maxn];
 point res[maxn];int m;
+segment seg[maxn];
 int main(){
+    int n=read();
+    seg[1]=segment(point(0,0),point(10000,0));
+    seg[2]=segment(point(10000,0),point(10000,10000));
+    seg[3]=segment(point(10000,10000),point(0,10000));
+    seg[4]=segment(point(0,10000),point(0,0));
+    for(int i=1;i<=n;i++){
+        double a,b,c,d;scanf("%lf%lf%lf%lf",&a,&b,&c,&d);
+        seg[4+i]=segment(point(a,b),point(c,d));
+    }
+    SI(seg,n+4,res,m);
+    double x=poly_area(res,m);
+    printf("%.1f",x);
     return 0;
 }

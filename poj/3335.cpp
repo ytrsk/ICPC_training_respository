@@ -7,7 +7,7 @@
 using namespace std;
 typedef long long ll;
 const int maxn=100007;
-const double eps=1e-7;
+const double eps=1e-8;
 #define ppb pair<pair<point,point>,bool>
 #define pp pair<point,point>
 struct point{
@@ -20,14 +20,14 @@ struct point{
 	double operator * (point a){
 		return x*a.x+y*a.y;
 	}
+	point operator * (double a){
+        return point(x*a,y*a);
+	}
 	inline point operator - (point a){
 		return point(x-a.x,y-a.y);
 	}
 	inline point operator + (point a){
 		return point(x+a.x,y+a.y);
-	}
-	inline point operator * (double a){
-        return point(x*a,y*a);
 	}
     inline bool operator == (point a){
         return fabs(x-a.x)<eps&&fabs(y-a.y)<eps;
@@ -168,6 +168,9 @@ inline pp project_line(point a,point b,point c,point d){
 //==========================================================
 struct segment{
     point a,b;double ang;
+    void print(){
+        a.print();b.print();cout<<endl;
+    }
     double angle(){
         return atan2(b.y-a.y,b.x-a.x);
     }
@@ -205,18 +208,8 @@ bool point_in_poly(point a,point *p,int n){
     }
     return mul(p[n],p[1],a)>-eps;
 }
-inline void clockwise(point *p,int n){
-    double ans=0;
-    for(int i=2;i<=n;i++) ans+=mul(p[i-1],p[i],p[1]);
-    if(ans<0) reverse(p+1,p+n+1);
-}
-double poly_area(point *p,int n){
-    double ans=0;
-    for(int i=1;i<=n;i++) ans+=p[i]^p[i%n+1];
-    return fabs(0.5*ans);
-}
 segment qs[maxn];point qp[maxn];
-inline bool SI(segment *s,int n,point *res,int &m){
+inline bool SI(segment *s,int n,point *res,int m){
     sort(s+1,s+n+1,cmp_seg);
     int ql=1,qr=0;
     qs[++qr]=s[1];
@@ -237,8 +230,19 @@ inline bool SI(segment *s,int n,point *res,int &m){
     m=0;for(int i=ql;i<=qr;i++) res[++m]=qp[i];
     return true;
 }
+point res[maxn];
 segment seg[maxn];
-point res[maxn];int m;
 int main(){
+    int t=read();
+    while(t--){
+        int n=read();
+        for(int i=1;i<=n;i++) p[i].x=read(),p[i].y=read();
+        for(int i=1;i<=n;i++) seg[i]=segment(p[i%n+1],p[i]);
+        int m;
+        if(!SI(seg,n,res,m)){
+            printf("NO\n");
+        }
+        else printf("YES\n");
+    }
     return 0;
 }

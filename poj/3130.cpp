@@ -205,18 +205,8 @@ bool point_in_poly(point a,point *p,int n){
     }
     return mul(p[n],p[1],a)>-eps;
 }
-inline void clockwise(point *p,int n){
-    double ans=0;
-    for(int i=2;i<=n;i++) ans+=mul(p[i-1],p[i],p[1]);
-    if(ans<0) reverse(p+1,p+n+1);
-}
-double poly_area(point *p,int n){
-    double ans=0;
-    for(int i=1;i<=n;i++) ans+=p[i]^p[i%n+1];
-    return fabs(0.5*ans);
-}
 segment qs[maxn];point qp[maxn];
-inline bool SI(segment *s,int n,point *res,int &m){
+inline bool SI(segment *s,int n,point *res,int m){
     sort(s+1,s+n+1,cmp_seg);
     int ql=1,qr=0;
     qs[++qr]=s[1];
@@ -237,8 +227,24 @@ inline bool SI(segment *s,int n,point *res,int &m){
     m=0;for(int i=ql;i<=qr;i++) res[++m]=qp[i];
     return true;
 }
+inline void clockwise(point *p,int n){
+    double ans=0;
+    for(int i=2;i<=n;i++) ans+=mul(p[i-1],p[i],p[1]);
+    if(ans<0) reverse(p+1,p+n+1);
+}
 segment seg[maxn];
-point res[maxn];int m;
+point res[maxn];
 int main(){
+    int n;
+    while((n=read())&&n){
+        for(int i=1;i<=n;i++) p[i].x=read(),p[i].y=read();
+        clockwise(p,n);
+        int m;
+        for(int i=1;i<=n;i++) seg[i]=segment(p[i],p[i%n+1]);
+        if(SI(seg,n,res,m)){
+            printf("1\n");
+        }
+        else printf("0\n");
+    }
     return 0;
 }

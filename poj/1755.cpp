@@ -6,18 +6,18 @@
 #define sqr(x) (x)*(x)
 using namespace std;
 typedef long long ll;
-const int maxn=100007;
-const double eps=1e-7;
+const int maxn=1007;
+const  long double eps=1e-16;
 #define ppb pair<pair<point,point>,bool>
 #define pp pair<point,point>
 struct point{
-	double x,y;
-	point(double x=0.0,double y=0.0):x(x),y(y){
+	long double x,y;
+	point(long double x=0.0,long double y=0.0):x(x),y(y){
 	}
-	double operator ^ (point a){
+	long double operator ^ (point a){
 		return x*a.y-y*a.x;
 	}
-	double operator * (point a){
+	long double operator * (point a){
 		return x*a.x+y*a.y;
 	}
 	inline point operator - (point a){
@@ -26,7 +26,7 @@ struct point{
 	inline point operator + (point a){
 		return point(x+a.x,y+a.y);
 	}
-	inline point operator * (double a){
+	inline point operator * (long double a){
         return point(x*a,y*a);
 	}
     inline bool operator == (point a){
@@ -40,14 +40,14 @@ struct point{
         cout<<x<<" "<<y<<" ";
 	}
 }p[maxn],s;
-bool equal0(double x){
+bool equal0(long double x){
     return fabs(x)<eps;
 }
 bool equal_num(double x,double y){
     return fabs(x-y)<eps;
 }
 typedef point vec;
-inline double length(point a){
+inline long double length(point a){
     return sqrt(sqr(a.x)+sqr(a.y));
 }
 inline bool parallel(point a,point b,point c,point d){
@@ -210,8 +210,8 @@ inline void clockwise(point *p,int n){
     for(int i=2;i<=n;i++) ans+=mul(p[i-1],p[i],p[1]);
     if(ans<0) reverse(p+1,p+n+1);
 }
-double poly_area(point *p,int n){
-    double ans=0;
+long double poly_area(point *p,int n){
+    long double ans=0;
     for(int i=1;i<=n;i++) ans+=p[i]^p[i%n+1];
     return fabs(0.5*ans);
 }
@@ -222,23 +222,57 @@ inline bool SI(segment *s,int n,point *res,int &m){
     qs[++qr]=s[1];
     for(int i=2;i<=n;i++){
         if(fabs(s[i].ang-s[i-1].ang)>eps){
-            while(ql<qr&&mul(s[i].b,qp[qr-1],s[i].a)<-eps) --qr;
-            while(ql<qr&&mul(s[i].b,qp[ql],s[i].a)<-eps) ++ql;
+            while(ql<qr&&mul(s[i].b,qp[qr-1],s[i].a)<eps) --qr;
+            while(ql<qr&&mul(s[i].b,qp[ql],s[i].a)<eps) ++ql;
             qp[qr]=get_intersect_point(qs[qr].a,qs[qr].b,s[i].a,s[i].b);
             qs[++qr]=s[i];
             if(parallel(qs[qr-1].a,qs[qr-1].b,qs[qr].a,qs[qr].b))
             return false;
         }
     }
-    while(ql<qr&&mul(qs[ql].b,qp[qr-1],qs[ql].a)<-eps) --qr;
-    while(ql<qr&&mul(qs[qr].b,qp[ql],qs[qr].a)<-eps) ++ql;
+    while(ql<qr&&mul(qs[ql].b,qp[qr-1],qs[ql].a)<eps) --qr;
+    while(ql<qr&&mul(qs[qr].b,qp[ql],qs[qr].a)<eps) ++ql;
     if(qr<=ql+1) return false;
     qp[qr]=get_intersect_point(qs[ql].a,qs[ql].b,qs[qr].a,qs[qr].b);
     m=0;for(int i=ql;i<=qr;i++) res[++m]=qp[i];
     return true;
 }
-segment seg[maxn];
+int V[maxn],U[maxn],W[maxn];
 point res[maxn];int m;
+int Top;segment seg[maxn];
+const long double inf=1e6;
 int main(){
+    int n=read();
+    for(int i=1;i<=n;i++){
+        V[i]=read();U[i]=read();W[i]=read();
+    }
+    for(int i=1;i<=n;i++){
+        Top=0;
+        int ok=1;
+        seg[++Top]=segment(point(eps,eps),point(inf,eps));
+        seg[++Top]=segment(point(eps,inf),point(eps,eps));
+        seg[++Top]=segment(point(inf,eps),point(inf,inf));
+        seg[++Top]=segment(point(inf,inf),point(eps,inf));
+        long double one=(long double)1.0;
+        for(int k=1;k<=n;k++){
+            if(k!=i){
+                if(U[i]==U[k]&&V[i]==V[k]){
+                    if(W[i]<=W[k]) ok=0;
+                    else continue;
+                }
+                point to=point((long double)(U[i]-U[k])/(U[k]*U[i]),(long double)(V[k]-V[i])/(V[i]*V[k]));
+                point z=point(to.y,-to.x);
+
+                point A=z,B=z+to;
+              //  A.print();B.print();cout<<endl;
+                seg[++Top]=segment(A,B);
+            }
+        }
+        if(!ok) printf("No\n");
+        else{
+            if(SI(seg,Top,res,m)&&poly_area(res,m)>1e-18) printf("Yes\n",poly_area(res,m));
+            else printf("No\n",(double)poly_area(res,m));
+        }
+    }
     return 0;
 }

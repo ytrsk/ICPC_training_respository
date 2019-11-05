@@ -6,7 +6,7 @@
 #define sqr(x) (x)*(x)
 using namespace std;
 typedef long long ll;
-const int maxn=100007;
+const int maxn=1007;
 const double eps=1e-7;
 #define ppb pair<pair<point,point>,bool>
 #define pp pair<point,point>
@@ -240,5 +240,26 @@ inline bool SI(segment *s,int n,point *res,int &m){
 segment seg[maxn];
 point res[maxn];int m;
 int main(){
+    int n=read(),r=read();
+    for(int i=1;i<=n;i++) p[i].x=read(),p[i].y=read();
+    clockwise(p,n);
+    for(int i=1;i<=n;i++){
+        seg[i]=segment(p[i],p[i%n+1]);
+        point x=seg[i].b-seg[i].a;
+        point y=point(-x.y,x.x);
+        y=y*(r/length(y));
+        seg[i].a=seg[i].a+y;seg[i].b=seg[i].b+y;
+    }
+    SI(seg,n,res,m);
+    double a,b,c,d,D=-1;
+    for(int i=1;i<=m;i++){
+        for(int k=1;k<=m;k++){
+            if(dis(res[i],res[k])>D){
+                D=dis(res[i],res[k]);
+                a=res[i].x;b=res[i].y;c=res[k].x;d=res[k].y;
+            }
+        }
+    }
+    printf("%.4f %.4f %.4f %.4f",a,b,c,d);
     return 0;
 }
