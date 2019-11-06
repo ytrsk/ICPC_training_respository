@@ -16,7 +16,7 @@ int read(){
 int md[maxn],d[maxn],son[maxn],e1;
 int head[maxn],to[maxn<<1],nex[maxn<<1];
 void dfs1(int u,int fa){
-    md[u]=d[u];
+    md[u]=d[u];son[u]=0;
     for(int i=head[u];i;i=nex[i]){
         int v=to[i];
         if(v==fa) continue;
