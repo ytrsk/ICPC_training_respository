@@ -33,7 +33,7 @@ void tarjan(int u){
 void addedge(int u,int v){
     ++e1;next1[e1]=head[u];head[u]=e1;to[e1]=v;
 }
-int in[maxn],n;
+int in[maxn],n,vis[maxn];
 void init(){
     for(int i=1;i<=scnt;i++) head[i]=in[i]=sz[i]=vis[i]=0;
     for(int i=1;i<=n;i++) g[i].clear(),dfn[i]=scc[i]=0;
@@ -47,23 +47,25 @@ int read(){
     return x*f;
 }
 int main(){
-	n=read();int m=read();
-	for(int i=1;i<=m;i++){
-        int u=read(),v=read();
-        g[u].push_back(v);
-	}
-    for(int i=1;i<=n;i++) if(!dfn[i]) tarjan(i);
-    for(int i=1;i<=n;i++){
-        for(int k=0;k<g[i].size();k++)
-        if(scc[g[i][k]]!=scc[i]) addedge(scc[i],scc[g[i][k]]),in[scc[i]]++;
-    }
-    int ans=0,you=0;
-    for(int i=1;i<=scnt;i++){
-        if(!in[i]){
-            you++;ans=sz[i];
+	while((n=read())&&n){
+        int m=read();init();
+        for(int i=1;i<=m;i++){
+            int u=read(),v=read();
+            g[u].push_back(v);
         }
-    }
-    if(you==1) cout<<ans;
-    else cout<<0;
+        for(int i=1;i<=n;i++) if(!dfn[i]) tarjan(i);
+        for(int i=1;i<=n;i++){
+            for(int k=0;k<g[i].size();k++)
+            if(scc[g[i][k]]!=scc[i]) in[scc[i]]++;
+        }
+        int ans=0,you=0;
+        for(int i=1;i<=scnt;i++){
+            if(!in[i]) vis[i]=1;
+        }
+        for(int i=1;i<=n;i++){
+            if(vis[scc[i]]) printf("%d ",i);
+        }
+        printf("\n");
+	}
     return 0;
 }

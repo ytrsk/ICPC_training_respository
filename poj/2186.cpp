@@ -35,9 +35,10 @@ void addedge(int u,int v){
 }
 int in[maxn],n;
 void init(){
-    for(int i=1;i<=scnt;i++) head[i]=in[i]=sz[i]=vis[i]=0;
-    for(int i=1;i<=n;i++) g[i].clear(),dfn[i]=scc[i]=0;
-    e1=cl=scnt=0;
+    while(!s.empty()) s.pop();
+    for(int i=1;i<=scnt;i++) head[i]=in[i]=sz[i]=0;
+    for(int i=1;i<=n;i++) g[i].clear();
+    e1=0;cl=0;scnt=0;
 }
 int read(){
     int x=0,f=1;
