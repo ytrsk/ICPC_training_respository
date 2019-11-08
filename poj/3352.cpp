@@ -54,6 +54,17 @@ inline int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
+int cnt=0;
+void Dfs(int u,int fa){
+    dfn[u]=1;
+    for(int i=0;i<g[u].size();i++){
+        int v=g[u][i];
+        if(v==fa) continue;
+        Dfs(v,u);
+    }
+    if((int)g[u].size()==1) cnt++;
+}
+int U[maxn],V[maxn];
 int main(){
     int m;
     scanf("%d%d",&n,&m);
@@ -73,11 +84,21 @@ int main(){
     for(int i=1;i<=n;i++){
         for(int k=head[i];k;k=nex[k]){
             int v=to[k];
-            if(i<v&&bcc[i]!=bcc[v]){
+            if(v>i&&bcc[i]!=bcc[v]){
                 g[bcc[i]].push_back(bcc[v]);
                 g[bcc[v]].push_back(bcc[i]);
             }
         }
     }
+    for(int i=1;i<=bcnt;i++) dfn[i]=0;
+    int ans=0;
+    for(int i=1;i<=bcnt;i++){
+        if(!dfn[i]){
+            cnt=0;Dfs(i,0);
+            ans+=(cnt+1)/2;
+          //  cout<<cnt<<endl;
+        }
+    }
+    printf("%d",ans);
     return 0;
 }
