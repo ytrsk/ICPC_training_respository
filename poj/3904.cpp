@@ -58,8 +58,6 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
-
-
 int main(){
     int t=read();
     while(t--){
