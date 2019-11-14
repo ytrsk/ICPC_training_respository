@@ -33,8 +33,7 @@ ll dfs(int u,ll now){
 	ll ans=0,f;
 	for(int &i=cur[u];i;i=nex[i]){
 		int v=to[i];
-		if(d[u]+1==d[v]
-     &&(f=dfs(v,min(now,cap[i])))>0){
+		if(d[u]+1==d[v]&&(f=dfs(v,min(now,cap[i])))>0){
 			cap[i]-=f;
 			cap[i^1]+=f;
 			ans+=f;
