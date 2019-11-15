@@ -10,10 +10,9 @@ void pr(int l,int r){
 }
 int main(){
    // ios::sync_with_stdio(false);
-   freopen("test.in","w",stdout);
-
-    int n=500000,m=500000;pr(n);pr(m);
-    while(n--) pr(1,100000),pr(1,100000);
-    while(m--) pr(1,2),pr(1,100000),pr(1,100000);
+    freopen("test.in","w",stdout);
+    int n=500;pr(n);
+    int t=n*n;
+    while(t--) pr(1,10000);
     return 0;
 }
