@@ -136,8 +136,6 @@ struct KD_Tree {
 	}
 } KDT;
 int main() {
-    freopen("test.in","r",stdin);
-    freopen("std.out","w",stdout);
 	int n, m;
 	read(n), read(m);
 	for (int i = 1; i <= n; i++) {
