@@ -68,16 +68,42 @@ void addedge(int u,int v,ll c){
 void add(int u,int v,ll c){
 	addedge(u,v,c);addedge(v,u,0);
 }
+int A[maxn];
 void init(){
-	for(int i=1;i<=n;i++) head[i]=0;
+	for(int i=1;i<=n;i++) head[i]=0,A[i]=0;
 	for(int i=1;i<=e1;i++) to[i]=0;e1=1;
 }
+void Add(int u,int v,ll l,ll r){
+	A[u]-=l;A[v]+=l;add(u,v,r-l);
+}
+int you[maxn],L[maxn],R[maxn];
 int main(){
-	int cnt;cin>>cnt;
+	int cnt=1;
 	while(cnt--){
-        int nn,m;cin>>nn>>m;
-
+        int N=read(),m=read();
+        int SS,TT,S,T;
+		n=N+4;S=n-3;T=n-2;SS=n-1;TT=n;
+		init();Add(S,1,0,inf);
+		Add(N,T,0,inf);
+		for(int i=1;i<=m;i++){
+			int u=read(),v=read(),x=read(),y=read();
+			if(y) Add(u,v,x,x),L[i]=x;
+			else Add(u,v,0,x),L[i]=0;
+			you[i]=e1;
+		}
+		for(int i=1;i<=n-2;i++)
+        if(A[i]>0) add(SS,i,A[i]);
+        else if(A[i]<0) add(i,TT,-A[i]);
+		add(T,S,inf);
+		s=SS;t=TT;
+		dinic();
+		int ok=1;for(int i=head[SS];i;i=nex[i]) if(cap[i]) ok=0;
+		if(!ok) printf("Impossible\n");
+		else{
+			s=T;t=S;ll ans=cap[e1];cap[e1^1]=cap[e1]=0;
+			printf("%lld\n",ans-dinic());
+			for(int i=1;i<=m;i++) printf("%lld%c",L[i]+cap[you[i]],i==m?'\n':' ');
+		}
 	}
 	return 0;
 }
-

@@ -1,161 +1,132 @@
-#include<bits/stdc++.h>
-using namespace std;
-#define MAXN	1000005
-#define INF	1e9
-template <typename T> void read(T &x) {
-	x = 0; int f = 1;
-	char c = getchar();
-	for (; !isdigit(c); c = getchar()) if (c == '-') f = -f;
-	for (; isdigit(c); c = getchar()) x = x * 10 + c - '0';
-	x *= f;
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#define gc() (p1==p2&&(p2=(p1=buf)+fread(buf,1,1<<21,stdin),p1==p2)?EOF:*p1++)
+#define ls ch[0][rt]
+#define rs ch[1][rt]
+char buf[2100000],*p1=buf,*p2=buf;
+int read()
+{
+    int x=0;
+    char ch=gc();
+    while(ch<'0'||ch>'9')
+        ch=gc();
+    while(ch>='0'&&ch<='9')
+    {
+        x=x*10+(ch&15);
+        ch=gc();
+    }
+    return x;
 }
-struct point {int x[2]; } p[MAXN], q[MAXN];
-bool querytype[MAXN];
-int cmptype;
-bool operator == (point a, point b) {
-	return a.x[0] == b.x[0] && a.x[1] == b.x[1];
+int Max(int x,int y){return x>y?x:y;}
+int Min(int x,int y){return x<y?x:y;}
+using std::nth_element;
+int ch[2][200100],v[200100],x[2][200100],y[2][200100],c[2][200100],pcnt=0;
+int sz[200100],root=0;
+long long sum[200100];
+int Newnode(int X,int Y,int z)
+{
+    ++pcnt;
+    sum[pcnt]=v[pcnt]=z;
+    x[0][pcnt]=x[1][pcnt]=c[0][pcnt]=X;
+    y[0][pcnt]=y[1][pcnt]=c[1][pcnt]=Y;
+    return pcnt;
 }
-bool cmp(point a, point b) {
-	return a.x[cmptype] < b.x[cmptype] || a.x[cmptype] == b.x[cmptype] && a.x[cmptype ^ 1] < b.x[cmptype ^ 1];
+int a[200100],cnt=0;
+void dfs(int rt)
+{
+    if(ls)
+        dfs(ls);
+    a[++cnt]=rt;
+    if(rs)
+        dfs(rs);
 }
-void chkmax(int &x, int y) {
-	x = max(x, y);
+inline bool cmp0(int a,int b)
+{return c[0][a]<c[0][b];}
+inline bool cmp1(int a,int b)
+{return c[1][a]<c[1][b];}
+void maintain(int &rt)
+{
+    sz[rt]=sz[ls]+1+sz[rs];
+    sum[rt]=sum[ls]+v[rt]+sum[rs];
+    x[0][rt]=Min(c[0][rt],Min(x[0][ls],x[0][rs]));
+    x[1][rt]=Max(c[0][rt],Max(x[1][ls],x[1][rs]));
+    y[0][rt]=Min(c[1][rt],Min(y[0][ls],y[0][rs]));
+    y[1][rt]=Max(c[1][rt],Max(y[1][ls],y[1][rs]));
 }
-void chkmin(int &x, int y) {
-	x = min(x, y);
+void build(int &rt,int l,int r,int d)
+{
+    if(l>r)
+    {
+        rt=0;
+        return;
+    }
+    int mid=(l+r)>>1;
+    nth_element(a+l,a+mid,a+r+1,d?cmp1:cmp0);
+    rt=a[mid];
+    build(ls,l,mid-1,!d);
+    build(rs,mid+1,r,!d);
+    maintain(rt);
 }
-struct KD_Tree {
-	struct Node {
-		bool active;
-		int lc, rc, type;
-		point pos, L, R;
-	} a[MAXN];
-	int n, root, size, nowans;
-	point now;
-	void update(int root) {
-		if (a[root].active) {
-			a[root].L = a[root].pos;
-			a[root].R = a[root].pos;
-		} else {
-			a[root].L.x[0] = INF;
-			a[root].L.x[1] = INF;
-			a[root].R.x[0] = -INF;
-			a[root].R.x[1] = -INF;
-		}
-		if (a[root].lc) {
-			int tmp = a[root].lc;
-			chkmin(a[root].L.x[0], a[tmp].L.x[0]);
-			chkmin(a[root].L.x[1], a[tmp].L.x[1]);
-			chkmax(a[root].R.x[0], a[tmp].R.x[0]);
-			chkmax(a[root].R.x[1], a[tmp].R.x[1]);
-		}
-		if (a[root].rc) {
-			int tmp = a[root].rc;
-			chkmin(a[root].L.x[0], a[tmp].L.x[0]);
-			chkmin(a[root].L.x[1], a[tmp].L.x[1]);
-			chkmax(a[root].R.x[0], a[tmp].R.x[0]);
-			chkmax(a[root].R.x[1], a[tmp].R.x[1]);
-		}
-	}
-	void build(int root, int l, int r, int t) {
-		a[root].active = false;
-		if (l == r) {
-			a[root].pos = p[l];
-			a[root].L.x[0] = INF;
-			a[root].L.x[1] = INF;
-			a[root].R.x[0] = -INF;
-			a[root].R.x[1] = -INF;
-			a[root].type = t;
-			return;
-		}
-		int mid = (l + r) / 2;
-		cmptype = t;
-		nth_element(p + l, p + mid, p + r + 1, cmp);
-		a[root].pos = p[mid];
-		a[root].type = t;
-		if (mid > l) {
-			a[root].lc = ++size;
-			build(size, l, mid - 1, t ^ 1);
-		}
-		if (mid < r) {
-			a[root].rc = ++size;
-			build(size, mid + 1, r, t ^ 1);
-		}
-		update(root);
-	}
-	void init(int x) {
-		n = x; root = size = 1;
-		build(size, 1, n, 0);
-	}
-	int dist(int root, point now) {
-		return abs(a[root].pos.x[0] - now.x[0]) + abs(a[root].pos.x[1] - now.x[1]);
-	}
-	int distmin(int root, point now) {
-		if (root == 0 || a[root].L.x[0] == INF) return INF;
-		int ans = 0;
-		if (now.x[0] <= a[root].L.x[0]) ans += a[root].L.x[0] - now.x[0];
-		if (now.x[0] >= a[root].R.x[0]) ans += now.x[0] - a[root].R.x[0];
-		if (now.x[1] <= a[root].L.x[1]) ans += a[root].L.x[1] - now.x[1];
-		if (now.x[1] >= a[root].R.x[1]) ans += now.x[1] - a[root].R.x[1];
-		return ans;
-	}
-	void querymin(int root) {
-		if (a[root].active) {
-			int d = dist(root, now);
-			chkmin(nowans, d);
-		}
-		int ld = distmin(a[root].lc, now);
-		int rd = distmin(a[root].rc, now);
-		if (ld <= rd) {
-			if (a[root].lc && ld < nowans) querymin(a[root].lc);
-			if (a[root].rc && rd < nowans) querymin(a[root].rc);
-		} else {
-			if (a[root].rc && rd < nowans) querymin(a[root].rc);
-			if (a[root].lc && ld < nowans) querymin(a[root].lc);
-		}
-	}
-	int Querymin(point x) {
-		now = x; nowans = INF;
-		querymin(root);
-		return nowans;
-	}
-	void insert(int root, int t) {
-		if (a[root].pos == now) {
-			a[root].active = true;
-			update(root);
-			return;
-		}
-		cmptype = t;
-		if (cmp(now, a[root].pos)) insert(a[root].lc, t ^ 1);
-		else insert(a[root].rc, t ^ 1);
-		update(root);
-	}
-	void Insert(point x) {
-		now = x;
-		insert(root, 0);
-	}
-} KDT;
-int main() {
-	int n, m;
-	read(n), read(m);
-	for (int i = 1; i <= n; i++) {
-		read(p[i].x[0]), read(p[i].x[1]);
-		q[i] = p[i];
-	}
-	int tn = n;
-	for (int i = 1; i <= m; i++) {
-		int opt; read(opt);
-		read(q[n + i].x[0]), read(q[n + i].x[1]);
-		if (opt == 1) {
-			querytype[i] = true;
-			p[++tn] = q[n + i];
-		} else querytype[i] = false;
-	}
-	KDT.init(tn);
-	for (int i = 1; i <= n; i++)
-		KDT.Insert(q[i]);
-	for (int i = 1; i <= m; i++)
-		if (querytype[i]) KDT.Insert(q[n + i]);
-		else printf("%d\n", KDT.Querymin(q[n + i]));
-	return 0;
+void Insert(int &rt,int nd,int d)
+{
+    if(!rt)
+    {
+        rt=nd;
+        return;
+    }
+    Insert(ch[c[d][nd]>=c[d][rt]][rt],nd,!d);
+    maintain(rt);
+}
+int Cnt=0;
+void Find(int &rt,int nd,int d)
+{
+    if(rt==nd)
+        return;
+    if(Max(sz[ls],sz[rs])>sz[rt]*.85)
+    {
+        cnt=0;
+        dfs(rt);
+        build(rt,1,cnt,d);
+        return;
+    }
+    Find(ch[c[d][nd]>=c[d][rt]][rt],nd,!d);
+}
+int ask(int rt,int lx,int ly,int rx,int ry)
+{
+    if(lx<=x[0][rt]&&rx>=x[1][rt]&&ly<=y[0][rt]&&ry>=y[1][rt])
+        return sum[rt];
+    if(rx<x[0][rt]||lx>x[1][rt]||ry<y[0][rt]||ly>y[1][rt])
+        return 0;
+    return ask(ls,lx,ly,rx,ry)+((c[0][rt]>=lx&&c[0][rt]<=rx&&c[1][rt]>=ly&&c[1][rt]<=ry)?v[rt]:0)+ask(rs,lx,ly,rx,ry);
+}
+int main()
+{
+#ifdef wjyyy
+    freopen("a.in","r",stdin);
+#endif
+    x[0][0]=y[0][0]=0x7fffffff;
+    int op,n=read(),X,Y,z,x_,y_,lstans=0;
+    while(op!=3)
+    {
+        op=read();
+        if(op==1)
+        {
+            X=read()^lstans;
+            Y=read()^lstans;
+            z=read()^lstans;
+            Insert(root,Newnode(X,Y,z),0);
+            Find(root,pcnt,0);
+        }
+        else if(op==2)
+        {
+            X=read()^lstans;
+            Y=read()^lstans;
+            x_=read()^lstans;
+            y_=read()^lstans;
+            lstans=ask(root,X,Y,x_,y_);
+            printf("%d\n",lstans);
+        }
+    }
+    return 0;
 }

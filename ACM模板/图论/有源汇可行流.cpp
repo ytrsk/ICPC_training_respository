@@ -68,16 +68,29 @@ void addedge(int u,int v,ll c){
 void add(int u,int v,ll c){
 	addedge(u,v,c);addedge(v,u,0);
 }
+int A[maxn];
 void init(){
-	for(int i=1;i<=n;i++) head[i]=0;
+	for(int i=1;i<=n;i++) head[i]=0,A[i]=0;
 	for(int i=1;i<=e1;i++) to[i]=0;e1=1;
 }
+void Add(int u,int v,ll l,ll r){
+	A[u]-=l;A[v]+=l;add(u,v,r-l);
+}
 int main(){
-	int cnt;cin>>cnt;
+	int cnt=read();
 	while(cnt--){
-        int nn,m;cin>>nn>>m;
-
+        int N=read(),M=read();
+        int SS,TT,S,T;
+		n=N+M+4;S=n-3;T=n-2;SS=n-1;TT=n;
+		init();
+		//Add...
+		for(int i=1;i<=n-2;i++)
+        if(A[i]>0) add(SS,i,A[i]);
+        else if(A[i]<0) add(i,TT,-A[i]);
+		add(T,S,inf);
+		s=SS;t=TT;
+		dinic();
+		int ok=1;for(int i=head[SS];i;i=nex[i]) if(cap[i]) ok=0;
 	}
 	return 0;
 }
-

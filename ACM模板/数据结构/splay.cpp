@@ -64,9 +64,10 @@ void del(int x){
 }
 void ins(int &o,int p,int x){
     if(!o){
-        o=++e1;num[o]=x;fa[o]=p;splay(o,rt);return;
+        o=++e1;num[o]=x;fa[o]=p;tr[o][0]=tr[o][1]=0;
+        splay(o,rt);return;
     }
-    if(x<num[o]) ins(tr[o][0],o,x);else ins(tr[o][1],o,x);
+    ins(tr[x>num[o]][1],o,x);
     pushup(o);
 }
 int query_pre(int x){
