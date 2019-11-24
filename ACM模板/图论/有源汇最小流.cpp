@@ -83,14 +83,8 @@ int main(){
         int N=read(),m=read();
         int SS,TT,S,T;
 		n=N+4;S=n-3;T=n-2;SS=n-1;TT=n;
-		init();Add(S,1,0,inf);
-		Add(N,T,0,inf);
-		for(int i=1;i<=m;i++){
-			int u=read(),v=read(),x=read(),y=read();
-			if(y) Add(u,v,x,x),L[i]=x;
-			else Add(u,v,0,x),L[i]=0;
-			you[i]=e1;
-		}
+		init();
+		//Add ...
 		for(int i=1;i<=n-2;i++)
         if(A[i]>0) add(SS,i,A[i]);
         else if(A[i]<0) add(i,TT,-A[i]);
@@ -105,5 +99,6 @@ int main(){
 			for(int i=1;i<=m;i++) printf("%lld%c",L[i]+cap[you[i]],i==m?'\n':' ');
 		}
 	}
+	
 	return 0;
 }
