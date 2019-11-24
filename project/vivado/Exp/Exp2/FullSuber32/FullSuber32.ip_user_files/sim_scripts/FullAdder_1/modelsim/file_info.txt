@@ -1,0 +1,3 @@
+FullAdder1.v,verilog,xil_defaultlib,../../../../../../Exp1/Exp1-1/IPcore/FullAdder_1/sources_1/new/FullAdder1.v,
+FullAdder.v,verilog,xil_defaultlib,../../../../../../Exp1/Exp1-1/IPcore/FullAdder_1/sim/FullAdder.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v

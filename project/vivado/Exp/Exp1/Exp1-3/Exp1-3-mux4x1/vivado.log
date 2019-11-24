@@ -1,0 +1,39 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Sun Nov 10 01:18:22 2019
+# Process ID: 19928
+# Current directory: C:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-3/Exp1-3-mux4x1
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent18684 C:\Users\22321\Desktop\project\vivado\Exp\Exp1\Exp1-3\Exp1-3-mux4x1\Exp1-3-mux4x1.xpr
+# Log file: C:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-3/Exp1-3-mux4x1/vivado.log
+# Journal file: C:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-3/Exp1-3-mux4x1\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-3/Exp1-3-mux4x1/Exp1-3-mux4x1.xpr
+Scanning sources...
+Finished scanning sources
+WARNING: [filemgmt 56-3] IP Repository Path: Could not find the directory 'C:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-3/Exp1-1/IPcore'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+WARNING: [IP_Flow 19-2248] Failed to load user IP repository 'c:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-3/Exp1-1/IPcore'; Can't find the specified path.
+If this directory should no longer be in your list of user repositories, go to the IP Settings dialog and remove it.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/develop/SDX/Vivado/2019.1/data/ip'.
+WARNING: [BD 41-1661] One or more IPs have been locked in the design 'mux4x1.bd'. Please run report_ip_status for more details and recommendations on how to fix this issue.
+List of locked IPs:
+mux4x1_andgate_1_0
+mux4x1_orgate_1_0
+mux4x1_orgate_0_1
+mux4x1_andgate_0_0
+mux4x1_andgate_4_0
+mux4x1_notgate_0_0
+mux4x1_andgate_2_0
+mux4x1_andgate_3_0
+mux4x1_andgate_5_0
+mux4x1_notgate_1_0
+mux4x1_andgate_6_0
+mux4x1_andgate_7_0
+mux4x1_orgate_2_0
+
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Nov 10 01:50:35 2019...

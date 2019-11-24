@@ -1,0 +1,17 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../Exp1-2-BD.srcs/sources_1/ipshared/xilinx.com/andgate_v1_0/bc48234d/sources_1/new/andgate.v" \
+"../../../../Exp1-2-BD.ip_user_files/bd/mux2x1_BD/ip/mux2x1_BD_andgate_0_0/sim/mux2x1_BD_andgate_0_0.v" \
+"../../../../Exp1-2-BD.ip_user_files/bd/mux2x1_BD/ip/mux2x1_BD_andgate_1_0/sim/mux2x1_BD_andgate_1_0.v" \
+"../../../../Exp1-2-BD.srcs/sources_1/ipshared/xilinx.com/orgate_v1_0/2ff1b263/sources_1/new/orgate.v" \
+"../../../../Exp1-2-BD.ip_user_files/bd/mux2x1_BD/ip/mux2x1_BD_orgate_0_0/sim/mux2x1_BD_orgate_0_0.v" \
+"../../../../Exp1-2-BD.srcs/sources_1/ipshared/xilinx.com/notgate_v1_0/287ad1af/sources_1/new/notgate.v" \
+"../../../../Exp1-2-BD.ip_user_files/bd/mux2x1_BD/ip/mux2x1_BD_notgate_0_0/sim/mux2x1_BD_notgate_0_0.v" \
+"../../../../Exp1-2-BD.ip_user_files/bd/mux2x1_BD/hdl/mux2x1_BD.v" \
+"../../../../Exp1-2-BD.srcs/sim_1/new/s.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

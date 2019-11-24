@@ -1,0 +1,92 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
+| Date         : Mon Nov  4 15:39:20 2019
+| Host         : DESKTOP-UB8SBA3 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file drink_fsm_methodology_drc_routed.rpt -pb drink_fsm_methodology_drc_routed.pb -rpx drink_fsm_methodology_drc_routed.rpx
+| Design       : drink_fsm
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 11
++-----------+------------------+------------------------------+------------+
+| Rule      | Severity         | Description                  | Violations |
++-----------+------------------+------------------------------+------------+
+| TIMING-17 | Critical Warning | Non-clocked sequential cell  | 3          |
+| LUTAR-1   | Warning          | LUT drives async reset alert | 2          |
+| TIMING-20 | Warning          | Non-clocked latch            | 6          |
++-----------+------------------+------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+TIMING-17#1 Critical Warning
+Non-clocked sequential cell  
+The clock pin state_reg[0]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#2 Critical Warning
+Non-clocked sequential cell  
+The clock pin state_reg[1]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#3 Critical Warning
+Non-clocked sequential cell  
+The clock pin state_reg[2]/C is not reached by a timing clock
+Related violations: <none>
+
+LUTAR-1#1 Warning
+LUT drives async reset alert  
+LUT cell charge_val_reg[2]_i_2, with 2 or more inputs, drives asynchronous preset/clear pin(s) charge_val_reg[1]/CLR, charge_val_reg[2]/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+LUTAR-1#2 Warning
+LUT drives async reset alert  
+LUT cell next_state_reg[2]_i_3, with 2 or more inputs, drives asynchronous preset/clear pin(s) next_state_reg[0]/CLR, next_state_reg[1]/CLR, next_state_reg[2]/CLR. The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+TIMING-20#1 Warning
+Non-clocked latch  
+The latch charge_val_reg[0]/L7 (in charge_val_reg[0] macro) cannot be properly analyzed as its control pin charge_val_reg[0]/L7/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#2 Warning
+Non-clocked latch  
+The latch charge_val_reg[1] cannot be properly analyzed as its control pin charge_val_reg[1]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#3 Warning
+Non-clocked latch  
+The latch charge_val_reg[2] cannot be properly analyzed as its control pin charge_val_reg[2]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#4 Warning
+Non-clocked latch  
+The latch next_state_reg[0] cannot be properly analyzed as its control pin next_state_reg[0]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#5 Warning
+Non-clocked latch  
+The latch next_state_reg[1] cannot be properly analyzed as its control pin next_state_reg[1]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#6 Warning
+Non-clocked latch  
+The latch next_state_reg[2] cannot be properly analyzed as its control pin next_state_reg[2]/G is not reached by a timing clock
+Related violations: <none>
+
+

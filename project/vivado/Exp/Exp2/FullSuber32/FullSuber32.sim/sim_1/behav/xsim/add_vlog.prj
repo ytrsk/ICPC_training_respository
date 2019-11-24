@@ -1,0 +1,13 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../../Exp1/Exp1-1/IPcore/FullAdder_1/sources_1/new/FullAdder1.v" \
+"../../../../../../Exp1/Exp1-1/IPcore/FullAdder_1/sim/FullAdder.v" \
+"../../../../FullSuber32.srcs/sources_1/new/FullSuber32.v" \
+"../../../../FullSuber32.srcs/sources_1/new/hex_dp.v" \
+"../../../../FullSuber32.srcs/sources_1/new/add.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

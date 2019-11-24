@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"modules": {
+		"FullAdder32": {
+			"proto_instances": {
+			}
+		}
+	}
+}
