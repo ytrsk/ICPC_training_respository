@@ -87,6 +87,7 @@ int solve(char *s){
 //要求出具体流量，必须有严格的源汇
 int main(){
 	int M;
+    //asdhasdhaksjdhjkashdkjashdkjhasjkdhkjashdkjasdhashdasdhkj
 	while(N=read(),M=read(),N||M){
         int SS,TT,S,T;
         N+=2;
@@ -104,7 +105,7 @@ int main(){
         else if(A[i]<0) add(i,TT,-A[i]);
 		add(T,S,inf);
 		s=SS;t=TT;
-        dinic();
+        dinic();//asdasdasd
 		int ok=1;for(int i=head[SS];i;i=nex[i]) if(cap[i]) ok=0;
 		if(!ok) printf("impossible\n");
 		else{
