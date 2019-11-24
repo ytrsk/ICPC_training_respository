@@ -99,6 +99,5 @@ int main(){
 			for(int i=1;i<=m;i++) printf("%lld%c",L[i]+cap[you[i]],i==m?'\n':' ');
 		}
 	}
-	
 	return 0;
 }
