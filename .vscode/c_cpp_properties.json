@@ -4,14 +4,14 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\develop\\mingw\\include"
+                "D:\\develop\\mingw\\include"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:\\develop\\mingw\\bin\\g++.exe",
+            "compilerPath": "D:\\develop\\mingw\\bin\\g++.exe",
             "cppStandard": "c++14",
             "intelliSenseMode": "${default}",
             "compilerArgs": []
