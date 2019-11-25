@@ -118,3 +118,4 @@ selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sourc
 selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, testbench (testbench.v)]", 2, true); // B (F, cl) - Node
 selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, add (add.v)]", 1, true); // B (F, cl) - Node
 selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, add (add.v)]", 1, true, false, false, false, false, true); // B (F, cl) - Double Click - Node
+// [GUI Memory]: 122 MB (+2677kb) [00:08:49]
