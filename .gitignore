@@ -2,5 +2,5 @@
 *.o
 *.in
 *.out
-.vscode/
+.vscode/*
 cloud/
