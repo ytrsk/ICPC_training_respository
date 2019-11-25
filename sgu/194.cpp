@@ -76,27 +76,31 @@ void init(){
 void Add(int u,int v,ll l,ll r){
 	A[u]-=l;A[v]+=l;add(u,v,r-l);
 }
-int you[maxn];ll L[maxn],R[maxn];
+ll L[maxn],R[maxn];
+int you[maxn];
 int main(){
 	int cnt=1;
 	while(cnt--){
         int N=read(),m=read();
         int SS,TT,S,T;
-		n=N+4;S=n-3;T=n-2;SS=n-1;TT=n;
+		n=N+2;SS=n-1;TT=n;
 		init();
-		//Add ...
+		for(int i=1;i<=m;i++){
+            int u=read(),v=read();
+            ll x=read(),y=read();
+            Add(u,v,x,y);
+            you[i]=e1;L[i]=x;R[i]=y;
+        }
 		for(int i=1;i<=n-2;i++)
         if(A[i]>0) add(SS,i,A[i]);
         else if(A[i]<0) add(i,TT,-A[i]);
-		add(T,S,inf);
 		s=SS;t=TT;
 		dinic();
 		int ok=1;for(int i=head[SS];i;i=nex[i]) if(cap[i]) ok=0;
-		if(!ok) printf("Impossible\n");
+		if(!ok) printf("NO\n");
 		else{
-			s=T;t=S;ll ans=cap[e1];cap[e1^1]=cap[e1]=0;
-			printf("%lld\n",ans-dinic());
-			for(int i=1;i<=m;i++) printf("%lld%c",L[i]+cap[you[i]],i==m?'\n':' ');
+            printf("YES\n");
+			for(int i=1;i<=m;i++) printf("%lld\n",L[i]+cap[you[i]]);
 		}
 	}
 	return 0;
