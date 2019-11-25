@@ -1,9 +1,0 @@
-# compile verilog/system verilog design source files
-verilog xil_defaultlib  "../../../Exp1-1-ornotgate.srcs/sources_1/new/ornotgate.v"
-verilog xil_defaultlib  "../../../Exp1-1-ornotgate.srcs/sim_1/new/s.v"
-
-# compile glbl module
-verilog xil_defaultlib "glbl.v"
-
-# Do not sort compile order
-nosort
