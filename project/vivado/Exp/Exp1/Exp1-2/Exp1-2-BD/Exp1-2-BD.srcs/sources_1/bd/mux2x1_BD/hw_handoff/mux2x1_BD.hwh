@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Nov 04 12:52:29 2019" VIVADOVERSION="2015.2">
+
+  <SYSTEMINFO ARCH="artix7" DEVICE="7a35ti" NAME="mux2x1_BD" PACKAGE="cpg236" SPEEDGRADE="-1L"/>
+
+  <EXTERNALPORTS>
+    <PORT DIR="I" NAME="a" SIGIS="undef" SIGNAME="External_Ports_a">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="andgate_0" PORT="a"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="b" SIGIS="undef" SIGNAME="External_Ports_b">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="andgate_1" PORT="b"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="sel" SIGIS="undef" SIGNAME="External_Ports_sel">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="andgate_0" PORT="b"/>
+        <CONNECTION INSTANCE="notgate_0" PORT="a"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="7" NAME="c" RIGHT="0" SIGIS="undef" SIGNAME="orgate_0_c">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="orgate_0" PORT="c"/>
+      </CONNECTIONS>
+    </PORT>
+  </EXTERNALPORTS>
+
+  <EXTERNALINTERFACES/>
+
+  <MODULES>
+    <MODULE FULLNAME="/andgate_0" HWVERSION="1.0" INSTANCE="andgate_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="andgate" VLNV="xilinx.com:user:andgate:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="WIDTH" VALUE="8"/>
+        <PARAMETER NAME="Component_Name" VALUE="mux2x1_BD_andgate_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="7" NAME="a" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_a">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="a"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="b" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_sel">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="sel"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="7" NAME="c" RIGHT="0" SIGIS="undef" SIGNAME="andgate_0_c">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="orgate_0" PORT="a"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/andgate_1" HWVERSION="1.0" INSTANCE="andgate_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="andgate" VLNV="xilinx.com:user:andgate:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="WIDTH" VALUE="8"/>
+        <PARAMETER NAME="Component_Name" VALUE="mux2x1_BD_andgate_1_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="7" NAME="a" RIGHT="0" SIGIS="undef" SIGNAME="notgate_0_c">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="notgate_0" PORT="c"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="b" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_b">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="b"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="7" NAME="c" RIGHT="0" SIGIS="undef" SIGNAME="andgate_1_c">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="orgate_0" PORT="b"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/notgate_0" HWVERSION="1.0" INSTANCE="notgate_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="notgate" VLNV="xilinx.com:user:notgate:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="WIDTH" VALUE="8"/>
+        <PARAMETER NAME="Component_Name" VALUE="mux2x1_BD_notgate_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="7" NAME="a" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_sel">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="sel"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="7" NAME="c" RIGHT="0" SIGIS="undef" SIGNAME="notgate_0_c">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="andgate_1" PORT="a"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/orgate_0" HWVERSION="1.0" INSTANCE="orgate_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="orgate" VLNV="xilinx.com:user:orgate:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="WIDTH" VALUE="8"/>
+        <PARAMETER NAME="Component_Name" VALUE="mux2x1_BD_orgate_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="7" NAME="a" RIGHT="0" SIGIS="undef" SIGNAME="andgate_0_c">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="andgate_0" PORT="c"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="b" RIGHT="0" SIGIS="undef" SIGNAME="andgate_1_c">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="andgate_1" PORT="c"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="7" NAME="c" RIGHT="0" SIGIS="undef" SIGNAME="orgate_0_c">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="c"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+  </MODULES>
+
+</EDKSYSTEM>

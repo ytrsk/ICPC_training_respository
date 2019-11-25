@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Sun Nov 10 00:39:22 2019
+# Process ID: 25104
+# Current directory: C:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-1/Exp1-1-ornotgate
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent16764 C:\Users\22321\Desktop\project\vivado\Exp\Exp1\Exp1-1\Exp1-1-ornotgate\Exp1-1-ornotgate.xpr
+# Log file: C:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-1/Exp1-1-ornotgate/vivado.log
+# Journal file: C:/Users/22321/Desktop/project/vivado/Exp/Exp1/Exp1-1/Exp1-1-ornotgate\vivado.jou
+#-----------------------------------------------------------
+start_guieexit
+INFO: [Common 17-206] Exiting Vivado at Sun Nov 10 00:41:31 2019...

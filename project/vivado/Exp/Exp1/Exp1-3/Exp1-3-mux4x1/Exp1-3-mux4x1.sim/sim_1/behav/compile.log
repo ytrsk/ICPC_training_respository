@@ -1,0 +1,38 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/ipshared/xilinx.com/orgate_v1_0/3e65fa2c/sources_1/new/orgate.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module orgate
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_orgate_0_1/sim/mux4x1_orgate_0_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_orgate_0_1
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/ipshared/xilinx.com/andgate_v1_0/8b7cdf58/sources_1/new/andgate.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module andgate
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_andgate_0_0_1/sim/mux4x1_andgate_0_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_andgate_0_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/ipshared/xilinx.com/notgate_v1_0/36e1bdae/sources_1/new/notgate.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module notgate
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_notgate_0_0/sim/mux4x1_notgate_0_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_notgate_0_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_andgate_1_0/sim/mux4x1_andgate_1_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_andgate_1_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_andgate_2_0/sim/mux4x1_andgate_2_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_andgate_2_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_andgate_3_0/sim/mux4x1_andgate_3_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_andgate_3_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_notgate_1_0/sim/mux4x1_notgate_1_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_notgate_1_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_andgate_4_0/sim/mux4x1_andgate_4_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_andgate_4_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_andgate_5_0/sim/mux4x1_andgate_5_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_andgate_5_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_andgate_6_0/sim/mux4x1_andgate_6_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_andgate_6_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_andgate_7_0/sim/mux4x1_andgate_7_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_andgate_7_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_orgate_1_0/sim/mux4x1_orgate_1_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_orgate_1_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/ip/mux4x1_orgate_2_0/sim/mux4x1_orgate_2_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1_orgate_2_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sources_1/bd/mux4x1/hdl/mux4x1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mux4x1
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.srcs/sim_1/new/s.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module s
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp1-3-mux4x1/Exp1-3-mux4x1.sim/sim_1/behav/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl

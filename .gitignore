@@ -1,0 +1,7 @@
+.vscode/
+cloud/
+OJ/*.exe
+testdata/*.in
+testdata/*.out
+testdata/*.exe
+project/c++/*.exe
