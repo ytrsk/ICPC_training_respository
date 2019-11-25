@@ -4,9 +4,9 @@
   **** IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
     ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 
-source D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp2/FullAdder1/FullAdder1.hw/webtalk/labtool_webtalk.tcl -notrace
+source C:/Users/22321/Desktop/wa/acm/project/vivado/Exp/Exp2/FullAdder1/FullAdder1.hw/webtalk/labtool_webtalk.tcl -notrace
 
     while executing
-"webtalk_transmit -clientid 373305233 -regid "211499825_0_0_825" -xml D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp2/FullAdder1/FullAdder1.hw/webtalk/usage_sta..."
-    (file "D:/StudyAndWork/VIVADO/VIVADO/Exp/Exp2/FullAdder1/FullAdder1.hw/webtalk/labtool_webtalk.tcl" line 26)
-INFO: [Common 17-206] Exiting Webtalk at Thu Nov 07 20:44:34 2019...
+"webtalk_transmit -clientid 3032051006 -regid "" -xml C:/Users/22321/Desktop/wa/acm/project/vivado/Exp/Exp2/FullAdder1/FullAdder1.hw/webtalk/usage_stat..."
+    (file "C:/Users/22321/Desktop/wa/acm/project/vivado/Exp/Exp2/FullAdder1/FullAdder1.hw/webtalk/labtool_webtalk.tcl" line 26)
+INFO: [Common 17-206] Exiting Webtalk at Mon Nov 25 11:53:05 2019...

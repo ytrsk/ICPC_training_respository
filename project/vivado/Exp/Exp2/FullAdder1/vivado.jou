@@ -1,15 +1,13 @@
 #-----------------------------------------------------------
-# Vivado v2019.1 (64-bit)
-# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
-# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Sun Nov 10 06:35:40 2019
-# Process ID: 9640
-# Current directory: C:/Users/22321/Desktop/project/vivado/Exp/Exp2/FullAdder1
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent12008 C:\Users\22321\Desktop\project\vivado\Exp\Exp2\FullAdder1\FullAdder1.xpr
-# Log file: C:/Users/22321/Desktop/project/vivado/Exp/Exp2/FullAdder1/vivado.log
-# Journal file: C:/Users/22321/Desktop/project/vivado/Exp/Exp2/FullAdder1\vivado.jou
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Mon Nov 25 11:52:37 2019
+# Process ID: 5212
+# Log file: C:/Users/22321/Desktop/wa/acm/project/vivado/Exp/Exp2/FullAdder1/vivado.log
+# Journal file: C:/Users/22321/Desktop/wa/acm/project/vivado/Exp/Exp2/FullAdder1\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project C:/Users/22321/Desktop/project/vivado/Exp/Exp2/FullAdder1/FullAdder1.xpr
-update_compile_order -fileset sources_1
-close_project
+open_project C:/Users/22321/Desktop/wa/acm/project/vivado/Exp/Exp2/FullAdder1/FullAdder1.xpr
+open_project C:/Users/22321/Desktop/wa/acm/project/vivado/drink_fsm/drink_fsm.xpr
+open_project C:/Users/22321/Desktop/wa/acm/project/vivado/drink_fsm/drink_fsm.xpr

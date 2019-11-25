@@ -1,6 +1,3 @@
-*.exe
-*.o
-*.in
-*.out
 .vscode/
 cloud/
+testdata/
