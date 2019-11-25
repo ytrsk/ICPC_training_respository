@@ -1,7 +1,0 @@
-Running: xsim.dir/drink_fsm_behav/xsimk.exe -simmode gui -wdb drink_fsm_behav.wdb -simrunnum 0 -socket 49423
-Design successfully loaded
-Design Loading Memory Usage: 5124 KB (Peak: 5124 KB)
-Design Loading CPU Usage: 15 ms
-Simulation completed
-Simulation Memory Usage: 5724 KB (Peak: 5724 KB)
-Simulation CPU Usage: 30 ms
