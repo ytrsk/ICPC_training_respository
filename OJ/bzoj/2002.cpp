@@ -76,6 +76,22 @@ void cut(int x){
 void link(int x,int y){
     cut(x);fa[x]=y;
 }
+int a[maxn];
 int main(){
+    int n=read();
+    for(int i=1;i<=n;i++) a[i]=read(),sz[i]=1;
+    for(int i=1;i<=n;i++) if(a[i]+i<=n) link(i,a[i]+i);
+    int T=read();
+    while(T--){
+        int opt=read(),x=read();x++;
+        if(opt==1){
+            split(x);
+            printf("%d\n",sz[x]);
+        }
+        else{
+            int y=read();
+            cut(x);if(x+y<=n)link(x,x+y);
+        }
+    }
     return 0;
 }
