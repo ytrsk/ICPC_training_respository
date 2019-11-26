@@ -1,131 +1,159 @@
-#include<cstdio>
-#include<cstring>
-#include<algorithm>
-#define gc() (p1==p2&&(p2=(p1=buf)+fread(buf,1,1<<21,stdin),p1==p2)?EOF:*p1++)
-#define ls ch[0][rt]
-#define rs ch[1][rt]
-char buf[2100000],*p1=buf,*p2=buf;
-int read()
-{
-    int x=0;
-    char ch=gc();
-    while(ch<'0'||ch>'9')
-        ch=gc();
-    while(ch>='0'&&ch<='9')
-    {
-        x=x*10+(ch&15);
-        ch=gc();
+#include <cstdio>
+#include <cstring>
+
+inline int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+inline char fgc() {
+    static char buf[100000], *p1 = buf, *p2 = buf;
+    return p1 == p2 && (p2 = (p1 = buf) + fread(buf, 1, 100000, stdin), p1 == p2) ? EOF : *p1++;
+}
+
+inline int readint() {
+    register int res = 0, neg = 1;
+    register char c = fgc();
+    while(c < '0' || c > '9') {
+        if(c == '-') neg = -1;
+        c = fgc();
     }
-    return x;
+    while(c >= '0' && c <= '9') {
+        res = res * 10 + c - '0';
+        c = fgc();
+    }
+    return res * neg;
 }
-int Max(int x,int y){return x>y?x:y;}
-int Min(int x,int y){return x<y?x:y;}
-using std::nth_element;
-int ch[2][200100],v[200100],x[2][200100],y[2][200100],c[2][200100],pcnt=0;
-int sz[200100],root=0;
-long long sum[200100];
-int Newnode(int X,int Y,int z)
-{
-    ++pcnt;
-    sum[pcnt]=v[pcnt]=z;
-    x[0][pcnt]=x[1][pcnt]=c[0][pcnt]=X;
-    y[0][pcnt]=y[1][pcnt]=c[1][pcnt]=Y;
-    return pcnt;
+
+inline bool isop(char c) {
+    return c == 'Q' || c == 'C' || c == 'D';
 }
-int a[200100],cnt=0;
-void dfs(int rt)
-{
-    if(ls)
-        dfs(ls);
-    a[++cnt]=rt;
-    if(rs)
-        dfs(rs);
+
+inline char readop() {
+    register char c;
+    while(!isop(c = fgc()));
+    return c;
 }
-inline bool cmp0(int a,int b)
-{return c[0][a]<c[0][b];}
-inline bool cmp1(int a,int b)
-{return c[1][a]<c[1][b];}
-void maintain(int &rt)
-{
-    sz[rt]=sz[ls]+1+sz[rs];
-    sum[rt]=sum[ls]+v[rt]+sum[rs];
-    x[0][rt]=Min(c[0][rt],Min(x[0][ls],x[0][rs]));
-    x[1][rt]=Max(c[0][rt],Max(x[1][ls],x[1][rs]));
-    y[0][rt]=Min(c[1][rt],Min(y[0][ls],y[0][rs]));
-    y[1][rt]=Max(c[1][rt],Max(y[1][ls],y[1][rs]));
+
+const int MAXN = 10005;
+
+struct Edge {
+    int to, w, nxt;
+} gra[MAXN << 1];
+int head[MAXN], tot;
+
+int T, n, m, ut, vt, wt;
+char op;
+int w[MAXN], fa[MAXN], siz[MAXN], son[MAXN], dfn[MAXN], ptn[MAXN], top[MAXN], dep[MAXN], cnt;
+
+inline void dfs1(int u) {
+    siz[u] = 1;
+    son[u] = 0;
+    for(register int i = head[u]; i; i = gra[i].nxt) {
+        register int v = gra[i].to;
+        if(v == fa[u]) continue;
+        dep[v] = dep[u] + 1;
+        fa[v] = u;
+        w[v] = gra[i].w;
+        dfs1(v);
+        siz[u] += siz[v];
+        if(siz[v] > siz[son[u]]) son[u] = v;
+    }
 }
-void build(int &rt,int l,int r,int d)
-{
-    if(l>r)
-    {
-        rt=0;
+
+inline void dfs2(int u, int tp) {
+    top[u] = tp;
+    dfn[u] = ++cnt;
+    ptn[dfn[u]] = u;
+    if(son[u]) dfs2(son[u], tp);
+    for(register int i = head[u]; i; i = gra[i].nxt) {
+        register int v = gra[i].to;
+        if(v == son[u] || v == fa[u]) continue;
+        dfs2(v, v);
+    }
+}
+
+int sgt[MAXN << 2];
+
+inline void build(int o, int l, int r) {
+    if(l == r) {
+        sgt[o] = w[ptn[l]];
         return;
     }
-    int mid=(l+r)>>1;
-    nth_element(a+l,a+mid,a+r+1,d?cmp1:cmp0);
-    rt=a[mid];
-    build(ls,l,mid-1,!d);
-    build(rs,mid+1,r,!d);
-    maintain(rt);
+    register int mid = (l + r) >> 1, lch = o << 1, rch = (o << 1) | 1;
+    build(lch, l, mid);
+    build(rch, mid + 1, r);
+    sgt[o] = max(sgt[lch], sgt[rch]);
 }
-void Insert(int &rt,int nd,int d)
-{
-    if(!rt)
-    {
-        rt=nd;
+
+inline void modify(int o, int l, int r, int x, int v) {
+    if(l == r) {
+        sgt[o] = v;
         return;
     }
-    Insert(ch[c[d][nd]>=c[d][rt]][rt],nd,!d);
-    maintain(rt);
+    register int mid = (l + r) >> 1, lch = o << 1, rch = (o << 1) | 1;
+    if(x <= mid) modify(lch, l, mid, x, v);
+    else modify(rch, mid + 1, r, x, v);
+    sgt[o] = max(sgt[lch], sgt[rch]);
 }
-int Cnt=0;
-void Find(int &rt,int nd,int d)
-{
-    if(rt==nd)
-        return;
-    if(Max(sz[ls],sz[rs])>sz[rt]*.85)
-    {
-        cnt=0;
-        dfs(rt);
-        build(rt,1,cnt,d);
-        return;
+
+inline int query(int o, int l, int r, int ll, int rr) {
+    if(l >= ll && r <= rr) {
+        return sgt[o];
     }
-    Find(ch[c[d][nd]>=c[d][rt]][rt],nd,!d);
+    register int mid = (l + r) >> 1, lch = o << 1, rch = (o << 1) | 1, res = 0;
+    if(ll <= mid) res = max(res, query(lch, l, mid, ll, rr));
+    if(rr > mid) res = max(res, query(rch, mid + 1, r, ll, rr));
+    return res;
 }
-int ask(int rt,int lx,int ly,int rx,int ry)
-{
-    if(lx<=x[0][rt]&&rx>=x[1][rt]&&ly<=y[0][rt]&&ry>=y[1][rt])
-        return sum[rt];
-    if(rx<x[0][rt]||lx>x[1][rt]||ry<y[0][rt]||ly>y[1][rt])
-        return 0;
-    return ask(ls,lx,ly,rx,ry)+((c[0][rt]>=lx&&c[0][rt]<=rx&&c[1][rt]>=ly&&c[1][rt]<=ry)?v[rt]:0)+ask(rs,lx,ly,rx,ry);
-}
-int main()
-{
-#ifdef wjyyy
-    freopen("a.in","r",stdin);
-#endif
-    x[0][0]=y[0][0]=0x7fffffff;
-    int op,n=read(),X,Y,z,x_,y_,lstans=0;
-    while(op!=3)
-    {
-        op=read();
-        if(op==1)
-        {
-            X=read()^lstans;
-            Y=read()^lstans;
-            z=read()^lstans;
-            Insert(root,Newnode(X,Y,z),0);
-            Find(root,pcnt,0);
+
+inline int query(int u, int v) {
+    register int res = 0, tu = top[u], tv = top[v], t;
+    while(tu != tv) {
+        if(dep[tu] > dep[tv]) {
+            t = tu; tu = tv; tv = t;
+            t = u; u = v; v = t;
         }
-        else if(op==2)
-        {
-            X=read()^lstans;
-            Y=read()^lstans;
-            x_=read()^lstans;
-            y_=read()^lstans;
-            lstans=ask(root,X,Y,x_,y_);
-            printf("%d\n",lstans);
+        res = max(res, query(1, 1, n, dfn[tv], dfn[v]));
+        v = fa[tv];
+        tv = top[v];
+    }
+    if(dep[u] > dep[v]) { t = u; u = v; v = t; }
+    if(u != v) res = max(res, query(1, 1, n, dfn[u] + 1, dfn[v]));
+    return res;
+}
+
+struct Edge1 {
+    int u, v, w;
+} edge[MAXN];
+
+int main() {
+    T = readint();
+    while(T--) {
+        tot = cnt = 0;
+        memset(head, 0, sizeof(head));
+        n = readint();
+        for(int i = 1; i < n; i++) {
+            ut = readint(); vt = readint(); wt = readint();
+            edge[i] = Edge1 {ut, vt, wt};
+            gra[++tot] = Edge {vt, wt, head[ut]};
+            head[ut] = tot;
+            gra[++tot] = Edge {ut, wt, head[vt]};
+            head[vt] = tot;
+        }
+        dfs1(1);
+        dfs2(1, 1);
+        build(1, 1, n);
+        for(;;) {
+            op = readop();
+            if(op == 'D') break;
+            ut = readint();
+            vt = readint();
+            if(op == 'Q') {
+                printf("%d\n", query(ut, vt));
+            } else {
+                register int u = dep[edge[ut].u] > dep[edge[ut].v] ? edge[ut].u : edge[ut].v;
+                modify(1, 1, n, dfn[u], vt);
+            }
         }
     }
     return 0;

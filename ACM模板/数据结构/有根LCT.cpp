@@ -61,25 +61,21 @@ inline void access(int x){
         splay(x);tr[x][1]=y;pushup(x);
     }
 }
-inline void makeroot(int x){
-    access(x);splay(x);re(x);
-}
 int findroot(int x){
     access(x);splay(x);
     while(pushdown(x),tr[x][0]) x=tr[x][0];
-    return x;
+    return 0;
+}
+void split(int x){
+    access(x);splay(x);
+}
+void cut(int x){
+    split(x);
+    tr[x][0]=fa[tr[x][0]]=0;pushup(x);
 }
 void link(int x,int y){
-    makeroot(x);fa[x]=y;
-}
-void split(int x,int y){
-    makeroot(x);access(y);splay(y);
-}
-void cut(int x,int y){
-    split(x,y);
-    tr[y][0]=fa[x]=0;pushup(y);
+    cut(x);fa[x]=y;
 }
 int main(){
-    
     return 0;
 }

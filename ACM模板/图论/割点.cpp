@@ -36,7 +36,7 @@ int read(){
     return x*f;
 }
 int main(){
-	n=read();init():
+	n=read();init();
     for(int i=1;i<=n;i++) if(!dfn[i]) tarjan(i,0);
     int num=0;
     for(int i=1;i<=n;i++){
