@@ -1,13 +1,10 @@
-#include <stdio.h>
-#include <algorithm>
-#include <string.h>
-#include <math.h>
+#include <bits/stdc++.h>
 #define mp make_pair
 #define pii pair<int,int>
 using namespace std;
 typedef long long ll;
 #define rint register int
-const int maxn=300007;
+const int maxn=100007;
 const int inf=(1LL<<29);
 int read(){
     int x=0;int f=1;
@@ -18,21 +15,36 @@ int read(){
     while(c>='0'&&c<='9') x=x*10+c-'0',c=getchar();
     x*=f;return x;
 }
-int mx[maxn],val[maxn],e1,fa[maxn],tr[maxn][2],rev[maxn],tag[maxn];
+int sz[maxn],val[maxn],e1,fa[maxn],tr[maxn][2],rev[maxn],tag[maxn];
+struct node{
+    ll mx,l,r,sum;
+}nd[maxn];
+node merge(node a,node b){
+    node New;
+    New.mx=max(max(a.mx,b.mx),a.r+b.l);
+    New.l=max(a.l,a.sum+b.l);
+    New.r=max(b.r,b.sum+a.r);
+    New.sum=a.sum+b.sum;
+    return New; 
+}
 inline bool isroot(int o){
     return tr[fa[o]][0]!=o&&tr[fa[o]][1]!=o;
 }
-inline void pushup(int x){
-    if(!x) return;
-    mx[x]=max(max(mx[tr[x][0]],mx[tr[x][1]]),val[x]);
+inline void pushup(int o){
+    if(!o) return;
+    int x=max(val[o],0);
+    sz[o]=sz[tr[o][0]]+1+sz[tr[o][1]];
+    nd[o]=merge(merge(nd[tr[o][0]],node{x,x,x,val[o]}),nd[tr[o][1]]);
 }
 inline void re(int o){
     if(!o) return;
     rev[o]^=1;swap(tr[o][0],tr[o][1]);
+    swap(nd[o].l,nd[o].r);
 }
-inline void add(int o,int x){
+inline void change(int o,int x){
     if(!o) return;
-    mx[o]+=x;val[o]+=x;tag[o]+=x;
+    val[o]=tag[o]=x;ll r=max(val[o],0);
+    nd[o]=node{r*sz[o],r*sz[o],r*sz[o],1LL*val[o]*sz[o]};
 }
 inline void pushdown(int o){
     if(!o) return;
@@ -40,9 +52,9 @@ inline void pushdown(int o){
         re(tr[o][0]);re(tr[o][1]);
         rev[o]=0;
     }
-    if(tag[o]){
-        add(tr[o][0],tag[o]);add(tr[o][1],tag[o]);
-        tag[o]=0;
+    if(tag[o]!=inf){
+        change(tr[o][0],tag[o]);change(tr[o][1],tag[o]);
+        tag[o]=inf;
     }
 }
 inline void rotate(int x){
@@ -90,41 +102,25 @@ void cut(int x,int y){
     split(x,y);
     tr[y][0]=fa[x]=0;pushup(y);
 }
-int U[maxn],V[maxn];
-//每次操作之后记得pushup
 int main(){
-    int n;
-    while(scanf("%d",&n)==1){
-        for(int i=1;i<n;i++){
-            U[i]=read();V[i]=read();
+    int n=read();
+    for(int i=1;i<=n;i++){
+        val[i]=read();int x=max(val[i],0);
+        nd[i]=node{x,x,x,val[i]};sz[i]=1;tag[i]=inf;
+    }
+    for(int i=1;i<n;i++){
+        int u=read(),v=read();
+        link(u,v);
+    }
+    int T=read();
+    while(T--){
+        int opt=read(),u=read(),v=read();
+        if(opt==1){
+            split(u,v);printf("%lld\n",nd[v].mx);
         }
-        for(int i=1;i<=n;i++){
-            val[i]=mx[i]=read();tag[i]=fa[i]=tr[i][0]=tr[i][1]=rev[i]=0;
-        }
-        for(int i=1;i<n;i++) link(U[i],V[i]);
-        int T=read();
-        while(T--){
-            int opt=read(),x=read(),y=read();
-            if(opt==1){
-                if(findroot(x)!=findroot(y)) link(x,y);
-                else printf("-1\n");
-            }
-            else if(opt==2){
-                if(findroot(x)==findroot(y)&&x!=y) cut(x,y);
-                else printf("-1\n");
-            }
-            else if(opt==3){
-                int z=read();
-                if(findroot(y)==findroot(z)){split(y,z);add(z,x);}
-                else printf("-1\n");
-            }
-            else if(opt==4){
-                if(findroot(x)!=findroot(y)){
-                    printf("-1\n");continue;
-                }
-                split(x,y);
-                printf("%d\n",mx[y]);
-            }
+        else{
+            int x=read();
+            split(u,v);change(v,x);
         }
     }
     return 0;

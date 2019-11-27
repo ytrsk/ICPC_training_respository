@@ -1,13 +1,10 @@
-#include <stdio.h>
-#include <algorithm>
-#include <string.h>
-#include <math.h>
+#include <bits/stdc++.h>
 #define mp make_pair
 #define pii pair<int,int>
 using namespace std;
 typedef long long ll;
 #define rint register int
-const int maxn=300007;
+const int maxn=100007;
 const int inf=(1LL<<29);
 int read(){
     int x=0;int f=1;
@@ -18,7 +15,7 @@ int read(){
     while(c>='0'&&c<='9') x=x*10+c-'0',c=getchar();
     x*=f;return x;
 }
-int mx[maxn],val[maxn],e1,fa[maxn],tr[maxn][2],rev[maxn],tag[maxn];
+int mx[maxn],val[maxn],e1,fa[maxn],tr[maxn][2],rev[maxn];
 inline bool isroot(int o){
     return tr[fa[o]][0]!=o&&tr[fa[o]][1]!=o;
 }
@@ -30,19 +27,11 @@ inline void re(int o){
     if(!o) return;
     rev[o]^=1;swap(tr[o][0],tr[o][1]);
 }
-inline void add(int o,int x){
-    if(!o) return;
-    mx[o]+=x;val[o]+=x;tag[o]+=x;
-}
 inline void pushdown(int o){
     if(!o) return;
     if(rev[o]){
         re(tr[o][0]);re(tr[o][1]);
         rev[o]=0;
-    }
-    if(tag[o]){
-        add(tr[o][0],tag[o]);add(tr[o][1],tag[o]);
-        tag[o]=0;
     }
 }
 inline void rotate(int x){
@@ -90,41 +79,25 @@ void cut(int x,int y){
     split(x,y);
     tr[y][0]=fa[x]=0;pushup(y);
 }
-int U[maxn],V[maxn];
-//每次操作之后记得pushup
+int query(int x,int y){
+    makeroot(x);
+    //cout<<findroot(y);
+    return findroot(y)==x;
+}
 int main(){
-    int n;
-    while(scanf("%d",&n)==1){
-        for(int i=1;i<n;i++){
-            U[i]=read();V[i]=read();
+    int n=read(),m=read();
+    while(m--){
+        char s[20];scanf("%s",s+1);
+        int u=read(),v=read();
+        if(s[1]=='C'){
+            link(u,v);
         }
-        for(int i=1;i<=n;i++){
-            val[i]=mx[i]=read();tag[i]=fa[i]=tr[i][0]=tr[i][1]=rev[i]=0;
+        else if(s[1]=='D'){
+            cut(u,v);
         }
-        for(int i=1;i<n;i++) link(U[i],V[i]);
-        int T=read();
-        while(T--){
-            int opt=read(),x=read(),y=read();
-            if(opt==1){
-                if(findroot(x)!=findroot(y)) link(x,y);
-                else printf("-1\n");
-            }
-            else if(opt==2){
-                if(findroot(x)==findroot(y)&&x!=y) cut(x,y);
-                else printf("-1\n");
-            }
-            else if(opt==3){
-                int z=read();
-                if(findroot(y)==findroot(z)){split(y,z);add(z,x);}
-                else printf("-1\n");
-            }
-            else if(opt==4){
-                if(findroot(x)!=findroot(y)){
-                    printf("-1\n");continue;
-                }
-                split(x,y);
-                printf("%d\n",mx[y]);
-            }
+        else{
+            if(query(u,v)) printf("Yes\n");
+            else printf("No\n");
         }
     }
     return 0;

@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <algorithm>
-#include <string.h>
-#include <math.h>
+#include <bits/stdc++.h>
 #define mp make_pair
 #define pii pair<int,int>
 using namespace std;
@@ -88,7 +85,7 @@ void split(int x,int y){
 }
 void cut(int x,int y){
     split(x,y);
-    tr[y][0]=fa[x]=0;pushup(y);
+    tr[y][0]=fa[tr[y][0]]=0;pushup(y);
 }
 int U[maxn],V[maxn];
 //每次操作之后记得pushup
@@ -126,6 +123,7 @@ int main(){
                 printf("%d\n",mx[y]);
             }
         }
+        printf("\n");
     }
     return 0;
 }
