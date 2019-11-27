@@ -64,7 +64,7 @@ inline void access(int x){
 int findroot(int x){
     access(x);splay(x);
     while(pushdown(x),tr[x][0]) x=tr[x][0];
-    return 0;
+    return x;
 }
 void split(int x){
     access(x);splay(x);
