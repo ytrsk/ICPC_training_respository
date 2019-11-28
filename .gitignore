@@ -6,3 +6,4 @@ testdata/*.out
 testdata/*.exe
 project/c++/**/*.exe
 project/vivado/
+题目/

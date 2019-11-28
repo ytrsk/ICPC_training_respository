@@ -16,18 +16,13 @@ void wtree(int n){
 }
 int main(){
    // ios::sync_with_stdio(false);
+   freopen("test.in","w",stdout);
     srand(time(0));
-    int t=5;
-    pr(t);
-    while(t--){
-        int n=10000;pr(n);wtree(n);
-        int q=30000;
-        for(int i=1;i<=q;i++){
-            if(i%2) pr("QUERY");
-            else pr("CHANGE");
-            pr(1,n/2);if(i%2) pr(n/2+1,n);else pr(-10000,-1);
-        }
-        pr("DONE");
-    }
+    int n=1000,m=4000;pr(n);pr(m);
+    cout<<"\n";
+    for(int i=2;i<=n;i++) pr(1,i-1);
+    cout<<"\n";
+    for(int i=1;i<=n;i++) pr(1,m);
+    cout<<"\n";
     return 0;
 }
