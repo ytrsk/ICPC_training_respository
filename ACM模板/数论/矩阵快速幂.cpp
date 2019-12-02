@@ -26,7 +26,7 @@ struct matrix{
 	void print(){
 		for(int i=1;i<=n;i++){
 			for(int k=1;k<=m;k++){
-				printf("%d ",shu[i][k]);
+				printf("%lld ",shu[i][k]);
 			}
 			printf("\n");
 		}
@@ -36,13 +36,9 @@ struct matrix{
 	}
 };
 matrix powmat(matrix a,int b){
-	matrix ans;int first=0;
+	matrix ans;ans.n=ans.m=a.n;ans.eye();
 	while(b){
-		if(b&1){
-			if(!first) ans=a;
-			else ans=ans*a;
-			first=1;
-		}
+		if(b&1) ans=ans*a;
 		a=a*a;
 		b>>=1;
 	}

@@ -112,7 +112,7 @@ double dis_point_to_line(point a,point b,point c){
     return fabs(x)/length(b-c);
 }
 bool online(point a,point b,point c){
-    return equal0(mul(c,b,a));
+    return equal0(mul(b,c,a));
 }
 bool onsegment(point a,point b,point c){
     return online(a,b,c)&&dot(b,c,a)<eps;

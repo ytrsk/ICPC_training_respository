@@ -102,7 +102,7 @@ inline void augment(){
     for(int i=2;i<=e1;i++) cost[i]+=d[from[i]]-d[to[i]];
     delta+=d[t];
     ll now=0;
-    while(memset(vis,0,sizeof(vis)),now=dfs(s,inf)){
+    while(fill(vis+1,vis+n+1,0),now=dfs(s,inf)){
         mf+=now;
         mc+=now*delta;
     }
