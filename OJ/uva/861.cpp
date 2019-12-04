@@ -47,7 +47,7 @@ int main(){
     while(n=read(),m=read(),n||m){
         ll ans=0;
         for(int i=0;i<=m;i++)
-        ans+=dpw[n][i]*dpb[n-1][m-i];
+        if(i<=8&&m-i<=8)ans+=dpw[n][i]*dpb[n-1][m-i];
         printf("%lld\n",ans);
     }
     return 0;
