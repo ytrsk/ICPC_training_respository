@@ -48,9 +48,13 @@ void count(){
 }
 //该算法必须保证S[0]不等于字符串中的任何字符
 int main(){
-    cin>>s+1;
-    int n=strlen(s+1);
-    init();
-    for(int i=1;i<=n;i++) ins(s[i]-'a',i);
+    while(scanf("%s",s+1)==1){
+        int n=strlen(s+1);
+        init();
+        for(int i=1;i<=n;i++) ins(s[i]-'a',i);
+        int ans=0;
+        for(int i=1;i<=n;i++) ans=max(ans,LL[i]);
+        printf("%d\n",ans);
+    }
     return 0;
 }

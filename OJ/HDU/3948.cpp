@@ -48,9 +48,14 @@ void count(){
 }
 //该算法必须保证S[0]不等于字符串中的任何字符
 int main(){
-    cin>>s+1;
-    int n=strlen(s+1);
-    init();
-    for(int i=1;i<=n;i++) ins(s[i]-'a',i);
+    int t=read(),cnt=0;
+    while(t--){
+        cin>>s+1;
+        int n=strlen(s+1);
+        printf("Case #%d: ",++cnt);
+        init();
+        for(int i=1;i<=n;i++) ins(s[i]-'a',i);
+        printf("%d\n",e1-1);
+    }
     return 0;
 }
