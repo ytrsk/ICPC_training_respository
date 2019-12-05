@@ -4,7 +4,7 @@
 using namespace std;
 typedef long long ll;
 #define rint register int
-const int maxn=300007;
+const int maxn=200007;
 const int inf=(1LL<<29);
 int read(){
     int x=0;int f=1;
@@ -15,7 +15,6 @@ int read(){
     while(c>='0'&&c<='9') x=x*10+c-'0',c=getchar();
     x*=f;return x;
 }
-
 int tr[maxn][27];
 int fail[maxn],L[maxn],e1,las,LL[maxn],sz[maxn],num[maxn];
 void init(){
@@ -43,14 +42,48 @@ void ins(int c,int n){
     las=tr[u][c];sz[las]++;
     LL[n]=L[las];
 }
+int na[maxn],nb[maxn];
 void count(){
-    for(int i=e1;i>1;i--) sz[fail[i]]+=sz[i];
+    for(int i=e1;i>1;i--) sz[fail[i]]+=sz[i],na[fail[i]]+=na[i],nb[fail[i]]+=nb[i];
 }
 //该算法必须保证S[0]不等于字符串中的任何字符
+char A[maxn],B[maxn];
 int main(){
-    cin>>s+1;
-    int n=strlen(s+1);
-    init();
-    for(int i=1;i<=n;i++) ins(s[i]-'a',i);
+    int cnt=0;
+    int T=read();
+    while(T--){
+        scanf("%s%s",A+1,B+1);
+        int la=strlen(A+1),lb=strlen(B+1);
+        init();
+        strcpy(s+1,A+1);
+        for(int i=1;i<=la;i++) ins(A[i]-'a',i);
+        las=0;
+        strcpy(s+1,B+1);
+        for(int i=1;i<=lb;i++) ins(B[i]-'a',i);
+        int now=0;
+        for(int i=1;i<=e1;i++) na[i]=nb[i]=0;
+        int nowA=0,nowB=0;
+        for(int i=1;i<=la;i++){
+            int ch=A[i]-'a';
+            nowA=max(nowA,1);
+            while(A[i-L[nowA]-1]!=A[i]) nowA=fail[nowA];
+            if(tr[nowA][ch]) nowA=tr[nowA][ch];
+            na[nowA]++;
+        }
+        for(int i=1;i<=lb;i++){
+            int ch=B[i]-'a';
+            nowB=max(nowB,1);
+            while(B[i-L[nowB]-1]!=B[i]) nowB=fail[nowB];
+            if(tr[nowB][ch]) nowB=tr[nowB][ch];
+            nb[nowB]++;
+        }
+        count();
+        ll ans=0;
+        for(int i=2;i<=e1;i++){
+            //cout<<na[i]<<" "<<nb[i]<<"\n";
+            ans+=1LL*na[i]*nb[i];
+        }
+        printf("Case #%d: %lld\n",++cnt,ans);
+    }
     return 0;
 }
