@@ -4,7 +4,7 @@
 using namespace std;
 typedef long long ll;
 #define rint register int
-const int maxn=200007;
+const int maxn=400007;
 const int inf=(1LL<<29);
 int read(){
     int x=0;int f=1;
@@ -16,7 +16,7 @@ int read(){
     x*=f;return x;
 }
 int tr[maxn][27];
-int fail[maxn],L[maxn],e1,las,LL[maxn],sz[maxn],num[maxn];
+int fail[maxn],L[maxn],e1,las;
 void init(){
     L[0]=0;fail[0]=1;L[1]=-1;fail[1]=0;e1=1;las=0;
     memset(tr[0],0,sizeof(tr[0]));
@@ -28,7 +28,6 @@ int new_node(int x){
     memset(tr[e1],0,sizeof(tr[e1]));L[e1]=x;
     return e1;
 }
-int val[maxn];
 void ins(int c,int n){
     int u=las;
     while(s[n-L[u]-1]!=s[n]) u=fail[u];
@@ -39,12 +38,11 @@ void ins(int c,int n){
         fail[now]=tr[v][c];
         tr[u][c]=now;
     }
-    las=tr[u][c];sz[las]++;
-    LL[n]=L[las];
+    las=tr[u][c];
 }
 int na[maxn],nb[maxn];
 void count(){
-    for(int i=e1;i>1;i--) sz[fail[i]]+=sz[i],na[fail[i]]+=na[i],nb[fail[i]]+=nb[i];
+    for(int i=e1;i>1;i--) na[fail[i]]+=na[i],nb[fail[i]]+=nb[i];
 }
 //该算法必须保证S[0]不等于字符串中的任何字符
 char A[maxn],B[maxn];
@@ -60,27 +58,23 @@ int main(){
         las=0;
         strcpy(s+1,B+1);
         for(int i=1;i<=lb;i++) ins(B[i]-'a',i);
-        int now=0;
         for(int i=1;i<=e1;i++) na[i]=nb[i]=0;
         int nowA=0,nowB=0;
         for(int i=1;i<=la;i++){
             int ch=A[i]-'a';
-            nowA=max(nowA,1);
             while(A[i-L[nowA]-1]!=A[i]) nowA=fail[nowA];
-            if(tr[nowA][ch]) nowA=tr[nowA][ch];
+            if(tr[nowA][ch])nowA=tr[nowA][ch];
             na[nowA]++;
         }
         for(int i=1;i<=lb;i++){
             int ch=B[i]-'a';
-            nowB=max(nowB,1);
             while(B[i-L[nowB]-1]!=B[i]) nowB=fail[nowB];
-            if(tr[nowB][ch]) nowB=tr[nowB][ch];
+            if(tr[nowB][ch])nowB=tr[nowB][ch];
             nb[nowB]++;
         }
         count();
         ll ans=0;
         for(int i=2;i<=e1;i++){
-            //cout<<na[i]<<" "<<nb[i]<<"\n";
             ans+=1LL*na[i]*nb[i];
         }
         printf("Case #%d: %lld\n",++cnt,ans);
