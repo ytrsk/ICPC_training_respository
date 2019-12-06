@@ -4,7 +4,7 @@
 using namespace std;
 typedef long long ll;
 #define rint register int
-const int maxn=300007;
+const int maxn=100007;
 const int inf=(1LL<<29);
 int read(){
     int x=0;int f=1;
@@ -50,7 +50,11 @@ void count(){
     for(int i=e1;i>1;i--) sz[fail[i]]+=sz[i];
 }
 //该算法必须保证S[0]不等于字符串中的任何字符
-int dp[maxn][2],g[maxn][2];
+int dp[maxn],g[maxn];
+const int mod=1e9+7;
+void add(int &x,int y){
+    x+=y;if(x>=mod) x-=mod;
+}
 //notice: 等差数列信息从第二项开始进行保存，写法上需要注意，top直接跳到等差数列第一项。
 int main(){
     scanf("%s",s+1);
@@ -58,20 +62,17 @@ int main(){
     init();
     for(int i=1;i<=n;i++) ins(s[i]-'a',i);
     int now=0;
-    dp[0][0]=0;dp[0][1]=inf;
+    dp[0]=1;
     for(int i=1;i<=n;i++){
         int ch=s[i]-'a';
         while(s[i-L[now]-1]!=s[i]) now=fail[now];
         now=tr[now][ch];
-        dp[i][0]=dp[i][1]=inf;
         for(int k=now;k>1;k=top[k]){
-            g[k][0]=dp[i-L[top[k]]-d[k]][0];
-            g[k][1]=dp[i-L[top[k]]-d[k]][1];
-            if(d[k]==d[fail[k]]) g[k][0]=min(g[k][0],g[fail[k]][0]),g[k][1]=min(g[k][1],g[fail[k]][1]);
-            dp[i][1]=min(dp[i][1],g[k][0]+1);
-            dp[i][0]=min(dp[i][0],g[k][1]+1);
+            g[k]=dp[i-L[top[k]]-d[k]];
+            if(d[k]==d[fail[k]]) add(g[k],g[fail[k]]);
+            if(i%2==0) add(dp[i],g[k]);
         }
-        printf("%d %d\n",dp[i][1]<=n?dp[i][1]:-1,dp[i][0]<=n?dp[i][0]:-2);
     }
+    printf("%d",dp[n]);
     return 0;
 }

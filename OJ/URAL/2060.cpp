@@ -29,7 +29,7 @@ int new_node(int x){
     memset(tr[e1],0,sizeof(tr[e1]));L[e1]=x;
     return e1;
 }
-int val[maxn],d[maxn],top[maxn];
+int val[maxn],d[maxn],top[maxn],dep[maxn];
 void ins(int c,int n){
     int u=las;
     while(s[n-L[u]-1]!=s[n]) u=fail[u];
@@ -39,6 +39,7 @@ void ins(int c,int n){
         while(s[n-L[v]-1]!=s[n]) v=fail[v];
         fail[now]=tr[v][c];
         tr[u][c]=now;
+        dep[now]=dep[fail[now]]+1;
         d[now]=L[now]-L[fail[now]];
         if(d[now]==d[fail[now]]) top[now]=top[fail[now]]; 
         else top[now]=fail[now];
@@ -50,28 +51,28 @@ void count(){
     for(int i=e1;i>1;i--) sz[fail[i]]+=sz[i];
 }
 //该算法必须保证S[0]不等于字符串中的任何字符
-int dp[maxn][2],g[maxn][2];
+ll dp[maxn],g[maxn];
+const int mod=1e9+7;
+void add(ll &x,ll y){
+    x+=y;
+}
 //notice: 等差数列信息从第二项开始进行保存，写法上需要注意，top直接跳到等差数列第一项。
 int main(){
     scanf("%s",s+1);
     int n=strlen(s+1);
     init();
     for(int i=1;i<=n;i++) ins(s[i]-'a',i);
-    int now=0;
-    dp[0][0]=0;dp[0][1]=inf;
+    int now=0;ll ans=0;
     for(int i=1;i<=n;i++){
         int ch=s[i]-'a';
         while(s[i-L[now]-1]!=s[i]) now=fail[now];
-        now=tr[now][ch];
-        dp[i][0]=dp[i][1]=inf;
+        now=tr[now][ch];dp[i]=dep[now];
         for(int k=now;k>1;k=top[k]){
-            g[k][0]=dp[i-L[top[k]]-d[k]][0];
-            g[k][1]=dp[i-L[top[k]]-d[k]][1];
-            if(d[k]==d[fail[k]]) g[k][0]=min(g[k][0],g[fail[k]][0]),g[k][1]=min(g[k][1],g[fail[k]][1]);
-            dp[i][1]=min(dp[i][1],g[k][0]+1);
-            dp[i][0]=min(dp[i][0],g[k][1]+1);
+            g[k]=dp[i-L[top[k]]-d[k]];
+            if(d[k]==d[fail[k]]) add(g[k],g[fail[k]]);
+            add(ans,g[k]);
         }
-        printf("%d %d\n",dp[i][1]<=n?dp[i][1]:-1,dp[i][0]<=n?dp[i][0]:-2);
     }
+    printf("%lld",ans);
     return 0;
 }
