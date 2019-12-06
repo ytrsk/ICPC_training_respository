@@ -90,17 +90,17 @@ namespace linear_seq {
 };
 
 int main() {
-    while (~scanf("%lld",&n)) {
         vector<int>v;
-        v.push_back(0);
-        v.push_back(1);
-        v.push_back(2);
-        v.push_back(5);
-        v.push_back(10);
-        v.push_back(20);
-        v.push_back(38);
-        v.push_back(71);
-        v.push_back(130);
-        printf("%d\n",linear_seq::gao(v,n-1));
-    }
+        v.push_back(128);
+        v.push_back(252);
+        v.push_back(488);
+        v.push_back(932);
+        v.push_back(1756);
+        v.push_back(3246);
+        v.push_back(5916);
+        v.push_back(10618);
+        v.push_back(18800);
+        v.push_back(32846);
+        v.push_back(56704);
+        printf("%d\n",linear_seq::gao(v,13));
 }
