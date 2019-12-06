@@ -57,50 +57,35 @@ int re[maxn];
 //notice: 等差数列信息从第二项开始进行保存，写法上需要注意，top直接跳到等差数列第一项。
 int gl[maxn];
 int main(){
-    scanf("%s%s",S+1,T+1);
-    int ls=strlen(S+1);
-    int n=0;
-    for(int i=1;i<=ls;i++) s[++n]=S[i],s[++n]=T[i];
-    init();
-    for(int i=1;i<=n;i++) ins(s[i]-'a',i);
-    int now=0;
-    dp[0]=0;
-    for(int i=1;i<=n;i++){
-        int ch=s[i]-'a';
-        while(s[i-L[now]-1]!=s[i]) now=fail[now];
-        dp[i]=inf;
-        if(i%2==0){
-            if(s[i]==s[i-1]) dp[i]=dp[i-2],p[i]=2,re[i]=0;
-        }
-        now=tr[now][ch];
-        for(int k=now;k>1;k=top[k]){
-            g[k]=dp[i-L[top[k]]-d[k]];gl[k]=L[top[k]]+d[k];
-            if(d[k]==d[fail[k]]){
-                if(g[fail[k]]<g[k]){
-                    g[k]=g[fail[k]];gl[k]=gl[fail[k]]+d[k];
-                }
-            }
+    int T=read();
+    while(T--){
+        scanf("%s",s+1);
+        int n=strlen(s+1),m=read();
+        init();
+        for(int i=1;i<=n;i++) ins(s[i]-'a',i);
+        int now=0;
+        dp[0]=0;
+        for(int i=1;i<=n;i++){
+            int ch=s[i]-'a';
+            while(s[i-L[now]-1]!=s[i]) now=fail[now];
+            dp[i]=inf;
             if(i%2==0){
-                if(g[k]+1<dp[i]){
-                    dp[i]=g[k]+1;p[i]=gl[k];re[i]=1;
+                if(s[i]==s[i-1]) dp[i]=dp[i-2],p[i]=2,re[i]=0;
+            }
+            now=tr[now][ch];
+            for(int k=now;k>1;k=top[k]){
+                g[k]=dp[i-L[top[k]]-d[k]];gl[k]=L[top[k]]+d[k];
+                if(d[k]==d[fail[k]]){
+                    g[k]=min(g[fail[k]],g[k]);
                 }
             }
         }
-    }
-    vector<pii> G;
-    int x=n;
-    if(dp[n]==inf){
-        printf("-1");return 0;
-    }
-    while(x){
-        if(re[x]){
-            G.push_back(mp(x-p[x]+1,x));
+        while(m--){
+            int l=read(),r=read();
+            if(l==r){
+                
+            }
         }
-        x-=p[x];
-    }
-    printf("%d\n",G.size());
-    for(int i=0;i<G.size();i++){
-        printf("%d %d\n",G[i].first/2+1,G[i].second/2);
     }
     return 0;
 }
