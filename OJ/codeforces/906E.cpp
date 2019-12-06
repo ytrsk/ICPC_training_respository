@@ -70,7 +70,7 @@ int main(){
         for(int k=now;k>1;k=top[k]){
             g[k]=dp[i-L[top[k]]-d[k]];
             if(d[k]==d[fail[k]]) add(g[k],g[fail[k]]);
-            if(i%2==0) add(dp[i],g[k]);
+            add(dp[i],g[k]);
         }
     }
     printf("%d",dp[n]);
