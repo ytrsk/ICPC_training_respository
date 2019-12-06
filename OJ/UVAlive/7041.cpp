@@ -40,7 +40,7 @@ void ins(int c,int n){
         fail[now]=tr[v][c];
         tr[u][c]=now;
     }
-    las=tr[u][c];sz[las]++;
+    las=tr[u][c];sz[las]++;SHIAI SH
     LL[n]=L[las];
 }
 void count(){
