@@ -3,36 +3,36 @@ using namespace std;
 typedef long long ll;
 const int mod=1e9+7;
 struct matrix{
-	int n,m;ll shu[107][107];
+	int n,m;ll a[107][107];
 	matrix(){
-		memset(shu,0,sizeof(shu));
+		memset(a,0,sizeof(a));
 	}
-	matrix operator * (matrix a){
-		matrix new1;new1.n=n;new1.m=a.m;
+	matrix operator * (matrix x){
+		matrix New;New.n=n;New.m=x.m;
 		for(int i=1;i<=n;i++)
-		for(int k=1;k<=a.m;k++)
+		for(int k=1;k<=x.m;k++)
 		for(int z=1;z<=m;z++)
-		new1.shu[i][k]+=shu[i][z]*a.shu[z][k],new1.shu[i][k]%=mod;
-		return new1;
+		New.a[i][k]+=a[i][z]*x.a[z][k],New.a[i][k]%=mod;
+		return New;
 	}
-	matrix operator + (matrix a){
-		matrix new1;new1.n=n;new1.m=m;
+	matrix operator + (matrix x){
+		matrix New;New.n=n;New.m=m;
 		for(int i=1;i<=n;i++)
 		for(int k=1;k<=m;k++){
-			new1.shu[i][k]=(shu[i][k]+a.shu[i][k])%mod;
+			New.a[i][k]=(a[i][k]+x.a[i][k])%mod;
 		}
-		return new1;
+		return New;
 	}
 	void print(){
 		for(int i=1;i<=n;i++){
 			for(int k=1;k<=m;k++){
-				printf("%lld ",shu[i][k]);
+				printf("%lld ",a[i][k]);
 			}
 			printf("\n");
 		}
 	}
 	void eye(){
-		for(int i=1;i<=n;i++) shu[i][i]=1;
+		for(int i=1;i<=n;i++) a[i][i]=1;
 	}
 };
 matrix powmat(matrix a,int b){
