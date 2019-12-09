@@ -3,7 +3,7 @@
 using namespace std;
 const int maxn=300007;
 const int mod=998244353,G=3;
-int rev[maxn<<2];ll tmp[maxn<<2],invb[maxn<<2],texp[maxn<<2];
+int rev[maxn<<2];ll A[maxn<<2],B[maxn<<2],C[maxn<<2];
 ll pown(ll a,ll b){
 	if(b<0){
 		b=-b;a=pown(a,mod-2);
@@ -84,10 +84,10 @@ void poly_inv(ll *a,ll *b,int len){
     while((1<<bit)<=(len<<1)) bit++;
     for(int i=0;i<(1<<bit);i++) rev[i]=(rev[i>>1]>>1)|((i&1)<<(bit-1));
     for(int i=len/2+1;i<(1<<bit);i++) b[i]=0;
-    for(int i=0;i<=len;i++) tmp[i]=a[i];
-    for(int i=len+1;i<(1<<bit);i++) tmp[i]=0;
-    ntt(tmp,(1<<bit),1),ntt(b,(1<<bit),1);
-    for(int i=0;i<(1<<bit);i++) (b[i]*=(2-tmp[i]*b[i]%mod+mod)%mod)%=mod;
+    for(int i=0;i<=len;i++) A[i]=a[i];
+    for(int i=len+1;i<(1<<bit);i++) A[i]=0;
+    ntt(A,(1<<bit),1),ntt(b,(1<<bit),1);
+    for(int i=0;i<(1<<bit);i++) (b[i]*=(2-A[i]*b[i]%mod+mod)%mod)%=mod;
     ntt(b,(1<<bit),-1);for(int i=len+1;i<(1<<bit);i++) b[i]=0;
 }
 void nttmul(ll *a,ll *b,int l1,int l2){
@@ -107,48 +107,70 @@ void poly_sqrt(ll *a,ll *b,int len){
         b[0]=min(b[0],mod-b[0]);
         return;
     }
-    poly_sqrt(a,b,len/2);poly_inv(b,invb,len);
+    poly_sqrt(a,b,len/2);poly_inv(b,B,len);
     int bit=1;
 	while((1<<bit)<=(len<<1)) bit++;
 	for(int i=0;i<(1<<bit);i++) rev[i]=(rev[i>>1]>>1)|((i&1)<<(bit-1));
 	for(int i=len/2+1;i<(1<<bit);i++) b[i]=0;
-	for(int i=0;i<=len;i++) tmp[i]=a[i];
-	for(int i=len+1;i<(1<<bit);i++) tmp[i]=0;
-    ntt(b,(1<<bit),1);ntt(invb,(1<<bit),1);ntt(tmp,(1<<bit),1);
+	for(int i=0;i<=len;i++) A[i]=a[i];
+	for(int i=len+1;i<(1<<bit);i++) A[i]=0;
+    ntt(b,(1<<bit),1);ntt(B,(1<<bit),1);ntt(A,(1<<bit),1);
     for(int i=0;i<(1<<bit);i++){
-        b[i]=(b[i]+tmp[i]*invb[i])%mod*inv2%mod;
+        b[i]=(b[i]+A[i]*B[i])%mod*inv2%mod;
     }
     ntt(b,(1<<bit),-1);for(int i=len+1;i<(1<<bit);i++) b[i]=0;
 }
 void poly_ln(ll *a,ll *b,int len){
     derivation(a,b,len);
-    poly_inv(a,invb,len);
-    nttmul(invb,b,len,len);
-    integral(invb,b,len);
+    poly_inv(a,B,len);
+    nttmul(B,b,len,len);
+    integral(B,b,len);
 }
 ll a[maxn<<2],b[maxn<<2];
 void poly_exp(ll *a,ll *b,int len){
     if(!len){
         b[0]=1;return;
     }
-    poly_exp(a,b,len/2);poly_ln(b,texp,len);
+    poly_exp(a,b,len/2);poly_ln(b,C,len);
     int bit=1;
     while((1<<bit)<=(len<<1)) bit++;
 	for(int i=0;i<(1<<bit);i++) rev[i]=(rev[i>>1]>>1)|((i&1)<<(bit-1));
 	for(int i=len/2+1;i<(1<<bit);i++) b[i]=0;
-	for(int i=0;i<=len;i++) tmp[i]=a[i];
-    for(int i=len+1;i<(1<<bit);i++) tmp[i]=0;
-    for(int i=len+1;i<(1<<bit);i++) texp[i]=0;
-    ntt(tmp,1<<bit,1);ntt(texp,1<<bit,1);ntt(b,1<<bit,1);
-    for(int i=0;i<(1<<bit);i++) b[i]=b[i]*(mod+1-texp[i]+tmp[i])%mod;
+	for(int i=0;i<=len;i++) A[i]=a[i];
+    for(int i=len+1;i<(1<<bit);i++) A[i]=0;
+    for(int i=len+1;i<(1<<bit);i++) C[i]=0;
+    ntt(A,1<<bit,1);ntt(C,1<<bit,1);ntt(b,1<<bit,1);
+    for(int i=0;i<(1<<bit);i++) b[i]=b[i]*(mod+1-C[i]+A[i])%mod;
     ntt(b,1<<bit,-1);
     for(int i=len+1;i<(1<<bit);i++) b[i]=0;
 }
-
+ll E[maxn<<2],D[maxn<<2];
+void poly_div(ll *a,ll *b,ll *c,int l1,int l2){
+    for(int i=0;i<=l1;++i) B[l1-i]=a[i];
+    for(int i=0;i<=l2;++i) C[l2-i]=b[i];
+    for(int i=l2+1;i<=l1-l2;i++) C[i]=0;
+    poly_inv(C,E,l1-l2);
+    nttmul(B,E,l1,l1-l2);
+    for(int i=0;i<=l1-l2;i++) c[i]=B[l1-l2-i];
+}
+void poly_mod(ll *a,ll *b,ll *c,int l1,int l2){
+    poly_div(a,b,D,l1,l2);
+    for(int i=0;i<=l2;i++) E[i]=b[i];
+    nttmul(D,E,l1-l2,l2);
+    for(int i=0;i<=l1;i++) c[i]=(a[i]-D[i]+mod)%mod;
+}
 int main(){
-    int n;cin>>n;n--;
-    for(int i=0;i<=n;i++) cin>>a[i];
-    poly_exp(a,b,n);
-    for(int i=0;i<=n;i++) cout<<b[i]<<' ';
+    int l1=2,l2=1;
+    a[0]=1;a[1]=2,a[2]=1;a[3]=0;
+    b[0]=1;b[1]=1,b[2]=0;
+	int bit=1;
+	while((1<<bit)<=l1+l2) bit++;
+	for(int i=0;i<(1<<bit);i++) rev[i]=(rev[i>>1]>>1)|((i&1)<<(bit-1));
+	for(int i=l1+1;i<(1<<bit);i++) a[i]=0;
+	for(int i=l2+1;i<(1<<bit);i++) b[i]=0;
+	ntt(a,1<<bit,1);ntt(b,1<<bit,1);
+	for(int i=0;i<(1<<bit);i++) a[i]=(a[i]*pown(b[i],mod-2))%mod;
+	ntt(a,1<<bit,-1);
+    printf("%lld %lld %lld %lld\n",a[0],a[1],a[2],a[3]);
     return 0;
 }

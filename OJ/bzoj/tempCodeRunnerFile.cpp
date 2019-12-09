@@ -1,0 +1,1 @@
+       printf("%d %d %d\n",now.a[0],now.a[1],now.a[2]);
