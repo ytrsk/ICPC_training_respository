@@ -24,17 +24,19 @@ ll f(ll a,ll b,ll c,ll n){
     }
     return (a/c)*n*(n+1)/2+(b/c)*(n+1)+f(a%c,b%c,c,n);
 }
-ll F(ll a,ll b,ll c,ll n){
-    ll x=(-b-1)/c+1;
-    if(x>n) return 0;
-    n-=x;
-    b+=x*c;
-    return f(a,b,c,n);
-}
 ll calc(ll a,ll b,ll c,ll n){
+    if(a==0){
+        return ((c/b)&1)?-n:n;
+    }
+    if(c>b){
+        ll ans=calc(a,b,c%b,n);
+        return ((c/b)&1)?-ans:ans;
+    }
+    cout<<a<<" "<<b<<" "<<c<<" "<<n<<endl;
     ll r=0,m=(a*n+c)/b;
-    if(m) r=-2*f(2*b,b-c-1,a,(m-1)/2);
-    ll ans=n*(m%2)+F(b,-c-1,a,m)+r;
+    if(m>1) r=2*f(2*b,2*b-c-1,a,m/2-1);
+    ll ans=n*(m%2)-f(b,b-c-1,a,m-1)+r;
+    ans=n-2*ans;
     return ans;
 }
 int main(){
@@ -42,7 +44,7 @@ int main(){
     while(T--){
         ll n=read(),r=read();
         ll sr=(ll)sqrt(r);
-        ll ans=calc(r*sr,r,r-sr*sr,n);
+        ll ans=calc(r*sr+r-sr*sr,r,0,n);
         cout<<ans<<"\n";
     }
     return 0;
