@@ -1,9 +1,5 @@
 .vscode/
 cloud/
+testdata/
 OJ/**/*.exe
-testdata/*.in
-testdata/*.out
-testdata/*.exe
-project/c++/**/*.exe
-project/vivado/
-problem/
+project/
