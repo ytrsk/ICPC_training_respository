@@ -3,3 +3,4 @@ cloud/
 testdata/
 OJ/**/*.exe
 project/
+.vscode/
