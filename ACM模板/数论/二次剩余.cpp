@@ -49,6 +49,6 @@ int sqrt_mod(int n){
     return x^((mod+1)/2);
 }
 int main(){
-    printf("%d\n",sqrt_mod(5));
+    printf("%d\n",sqrt_mod(2));
     return 0;
 }

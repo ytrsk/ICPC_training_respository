@@ -38,13 +38,6 @@ void pushup(int o){
     else cnt[o]=cnt[ls]+cnt[rs],mx[o]=mx[ls],se[o]=max(se[ls],se[rs]);
     sum[o]=sum[ls]+sum[rs];
 }
-void Min(int o,int x){
-    if(mn[o]!=-1) mn[o]=min(mn[o],x);
-    else mn[o]=x;
-    if(mx[o]>x){
-        sum[o]-=1LL*cnt[o]*(mx[o]-x);mx[o]=x;
-    }
-}
 void pushdown(int o){
     if(mn[o]!=-1){
         Min(o<<1,mn[o]);Min(o<<1|1,mn[o]);mn[o]=-1;
