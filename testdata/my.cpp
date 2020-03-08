@@ -1,63 +1,63 @@
-#include <bits/stdc++.h>
-#define mp make_pair
-#define sqr(x) (x)*(x)
-using namespace std;
-typedef pair<int,int> pii;
-typedef long long ll;
-const ll inf=1<<29;
-int read(){
-    int x=0,f=1;
-    char ch=getchar();
-    while(ch<'0'||ch>'9') {if(ch=='-') f=-1;ch=getchar();}
-    while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
-    return x*f;
-}
-const int mod=998244353;
-int c[1007];
-int dp[1007][8007];
-void add(int &x,int y){
-    x+=y;
-    if(x>=mod) x-=mod;
-}
-int mul(int x,int y){
-    return 1LL*x*y%mod;
-}
-vector<int> g[1007];
-int n,m,pre[8007];
-void dfs(int u){
-    dp[u][c[u]]=1;
-    for(int i=0;i<g[u].size();i++){
-        int v=g[u][i];dfs(v);
-        for(int k=1;k<=m;k++) pre[k]=dp[u][k];
-        for(int k=1;k<=m;k++){
-            int len=(int)sqrt(k+0.5);
-            for(int z=1;z<=len;z++){
-                if(k%z==0){
-                    add(dp[u][k],mul(pre[k/z],dp[v][z]));
-                    if(z*z!=k){
-                        add(dp[u][k],mul(pre[z],dp[v][k/z]));
-                    }
-                }
-            }
-        }
-    }
-}
-int main(){
-  //  freopen("test.in","r",stdin);
-    //freopen("my.out","w",stdout);
-    n=read();m=read();
-    for(int i=2;i<=n;i++){
-        int u=read();
-        g[u].push_back(i);
-    }
-    for(int i=1;i<=n;i++) c[i]=read();
-    dfs(1);
-    for(int i=1;i<=m;i++){
-        int sum=0;
-        for(int k=1;k<=n;k++)
-        add(sum,dp[k][i]);
-        printf("%d\n",sum);
-    }
-    printf("%.5lf\n",1.0*clock()/CLOCKS_PER_SEC);
-    return 0;
-}
+%1.标量变量
+%a.
+a=10;
+%b.
+b=2.5*10^23;
+%c.
+c=2+3i;
+%d.
+d=exp(pi*2i/3);
+%2.向量变量
+%a.
+aVec=[3.14,15,9,26];
+%b.
+bVec=[2.71;8;28;182];
+%c.
+cVec=5:-0.2:-5;
+%d.
+dVec=logspace(10^0,10^1,101);
+%e.
+eVec="Hello";
+%3.矩阵变量
+%a.
+aMat=ones(9)*2;
+%b.
+bMat=diag([1,2,3,4,5,4,3,2,1],0);
+%c.
+cMat=reshape(1:1:100,10,10);
+%d.
+dMat=zeros(3,4)*nan;
+%e.
+eMat=[13,-1,5;-22,10,-87];
+%f.
+fMat=floor(7*rand(5,3)-3); %用7是为了保证随机性
+fMat=randi([-3,3],5,3);
+%4.标量公式
+%a.
+x=1/exp(-(a-15)/6);
+%b.
+y=(sqrt(a)+b^(1/21))^pi;
+%c.
+z=log(real((c+d)*(c-d))*sin(a*pi/3))/(c*conj(c));
+%5.矩阵公式
+%a.
+xMat=(aVec*bVec)*aMat^2;
+%b.
+yMat=bVec*aVec;
+%c
+zMat=det(cMat)*(aMat*bMat)';
+%6.常用功能和索引
+%a.
+cSum=sum(cMat);
+%b.
+eMean=mean(eMat);
+%c.
+eMat(1,:)=[1,1,1];
+%d.
+cSub=cMat(2:9,2:9);
+%e.
+lin=1:20;
+lin(2:2:20)=lin(2:2:20)*(-1);
+%f.
+r=rand(1,5);
+r(find(r<0.5))=0;

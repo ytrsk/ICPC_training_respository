@@ -14,15 +14,16 @@ void tree(int n){
 void wtree(int n){
     for(int i=2;i<=n;i++) pr(1,i-1),pr(i),pr(-10000,-1);
 }
+int id[1000007];
 int main(){
    // ios::sync_with_stdio(false);
-   freopen("test.in","w",stdout);
-    srand(time(0));
-    int n=1000,m=4000;pr(n);pr(m);
-    cout<<"\n";
-    for(int i=2;i<=n;i++) pr(1,i-1);
-    cout<<"\n";
-    for(int i=1;i<=n;i++) pr(1,m);
-    cout<<"\n";
+    srand(time(0));pr(1);
+    int T=20;pr(T);
+    while(T--){
+    int n=300;pr(n);
+    for(int i=1;i<=n;i++) id[i]=i;
+    random_shuffle(id+1,id+n+1);
+    for(int i=1;i<=n;i++) cout<<id[i]<<" ";
+    tree(n);}
     return 0;
 }
