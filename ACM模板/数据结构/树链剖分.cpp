@@ -81,12 +81,10 @@ void addedge(int u,int v,int x){
     ++e1;nex[e1]=head[u];head[u]=e1;to[e1]=v;w[e1]=x;
 }
 void dfs1(int u,int fa){
-    f[u]=fa;
-    sz[u]=1;son[u]=0;
+    f[u]=fa;sz[u]=1;son[u]=0;d[u]=d[fa]+1;
     for(int i=head[u];i;i=nex[i]){
         int v=to[i];
         if(v==fa) continue;
-        d[v]=d[u]+1;
         a[v]=w[i];
         dfs1(v,u);
         sz[u]+=sz[v];
@@ -118,6 +116,7 @@ int Query(int x,int y){
     }
     if(dfn[x]<dfn[y]) ans=max(ans,query(1,1,n,dfn[x]+1,dfn[y]));
     else if(dfn[x]>dfn[y]) ans=max(ans,query(1,1,n,dfn[y]+1,dfn[x]));
+    //注意这里没有等号
     return ans;
 }
 void Update(int x,int y){

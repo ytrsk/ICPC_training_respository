@@ -4,7 +4,7 @@
 using namespace std;
 typedef pair<int,int> pii;
 typedef long long ll;
-const int maxn=250007;
+const int maxn=100007;
 const ll inf=0x3f3f3f3f3f3f3f3f;
 int read(){
     int x=0,f=1;
@@ -35,7 +35,7 @@ void dfs(int u,int fa){
 vector<int> g[maxn];
 map<string,int> aa;int id;
 void Init(){
-    cl=e1=id=0;
+    cl=e1=id=0;aa.clear();
     for(int i=1;i<=n;i++){
         head[i]=0;g[i].clear();
     }
@@ -46,14 +46,15 @@ bool cmp(int x,int y){
 int dis(int x,int y){
     return d[x]+d[y]-2*d[lca(x,y)]; 
 }
-int disl[maxn],disr[maxn];
+int disl[maxn],disr[maxn],D[maxn];
 int main(){
     int q;
     while(scanf("%d%d",&n,&q)==2){
         Init();
         for(int i=1;i<=n;i++){
             string s;cin>>s;
-            if(!aa[s]) aa[s]=++id;
+            if(!aa.count(s)) aa[s]=++id;
+            g[aa[s]].push_back(i);
         }
         for(int i=1;i<n;i++){
             int u=read(),v=read();
@@ -65,11 +66,24 @@ int main(){
                 disl[i]=disr[i]=g[i][0];
             }
             else if(g[i].size()>1){
-                disl[i]=g[i][0];disr[i]=g[i][1];
+                disl[i]=g[i][0];disr[i]=g[i][1];D[i]=dis(g[i][0],g[i][1]);
+                for(int k=2;k<g[i].size();k++){
+                    int v=g[i][k];
+                    int d1=dis(disl[i],v),d2=dis(disr[i],v);
+                    if(d1>=d2&&d1>=D[i]) D[i]=d1,disr[i]=v;
+                    else if(d2>=d1&&d2>=D[i]) D[i]=d2,disl[i]=v;
+                }
             }
         }
         for(int i=1;i<=q;i++){
-            string s1,s2;
+            string s1,s2;cin>>s1;cin>>s2;
+            if(!aa.count(s1)||!aa.count(s2)){
+                printf("-1\n");
+            }
+            else{
+                int u=aa[s1],v=aa[s2];
+                printf("%d\n",1+max(max(dis(disl[u],disl[v]),dis(disl[u],disr[v])),max(dis(disr[u],disl[v]),dis(disr[u],disr[v]))));
+            }
         }
     }
     return 0;
