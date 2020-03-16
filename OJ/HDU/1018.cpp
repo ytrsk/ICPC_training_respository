@@ -6,6 +6,8 @@ typedef pair<int,int> pii;
 typedef long long ll;
 const int maxn=100007;
 const ll inf=1<<29;
+const double pi=acos(-1.0);
+const double e=exp(1);
 int read(){
     int x=0,f=1;
     char ch=getchar();
@@ -14,10 +16,16 @@ int read(){
     return x*f;
 }
 int main(){
-    int t=clock();
-    vector<int> r(4,1);cout<<r[2]<<endl;
-    r.resize(0);r.resize(5);
-    cout<<r[2]<<endl;
-    printf("time: %.6f s\n",(clock()-t)/1000.0);
+    int t=read();
+    while(t--){
+        int n=read();
+        if(n<=1){
+            printf("1\n");
+        }
+        else{
+            ll x=ceil(log10(sqrt(2*pi*n))+n*log10(n/e));
+            printf("%lld\n",x);
+        }
+    }
     return 0;
 }

@@ -13,11 +13,19 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
+ll x[maxn],y[maxn];
+ll w[maxn];
 int main(){
-    int t=clock();
-    vector<int> r(4,1);cout<<r[2]<<endl;
-    r.resize(0);r.resize(5);
-    cout<<r[2]<<endl;
-    printf("time: %.6f s\n",(clock()-t)/1000.0);
+    int n=read();
+    for(int i=1;i<=n;i++) x[i]=read(),y[i]=read();
+    for(int i=1;i<=n;i++){
+        w[i]=x[i]*x[i]*y[i]+y[i]*y[i]*(y[i]-2*x[i]);
+    }
+    sort(w+1,w+n+1);
+    ll ans=0;
+    for(int i=2;i<=n;i++){
+        ans+=w[i]-w[i-1];
+    }
+    cout<<ans;
     return 0;
 }

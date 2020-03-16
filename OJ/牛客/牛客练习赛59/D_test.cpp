@@ -13,11 +13,13 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
+int dp[maxn];
 int main(){
-    int t=clock();
-    vector<int> r(4,1);cout<<r[2]<<endl;
-    r.resize(0);r.resize(5);
-    cout<<r[2]<<endl;
-    printf("time: %.6f s\n",(clock()-t)/1000.0);
+    dp[1]=0;int n=read();
+    for(int i=2;i<=n;i++){
+        if(i%2) dp[i]=!dp[i/2]||!dp[i/2+1];
+        else dp[i]=!dp[i/2];
+        printf("%d %d\n",i,dp[i]);
+    }
     return 0;
 }

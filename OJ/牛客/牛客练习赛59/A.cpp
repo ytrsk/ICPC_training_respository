@@ -13,11 +13,20 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
+int dp1[20],dp2[20];
 int main(){
-    int t=clock();
-    vector<int> r(4,1);cout<<r[2]<<endl;
-    r.resize(0);r.resize(5);
-    cout<<r[2]<<endl;
-    printf("time: %.6f s\n",(clock()-t)/1000.0);
+    string s1="XiaoQiao",s2="XiaoHuiHui";
+    string s;cin>>s;
+    dp1[0]=dp2[0]=1;
+    int n=s.length();
+    for(int i=0;i<n;i++){
+        for(int k=7;~k;k--){
+            if(dp1[k]&&s[i]==s1[k]) dp1[k+1]=1; 
+        }
+        for(int k=9;~k;k--){
+            if(dp2[k]&&s[i]==s2[k]) dp2[k+1]=1;
+        }
+    }
+    cout<<((dp1[8]&&dp2[10])?"Happy":"emm");
     return 0;
 }

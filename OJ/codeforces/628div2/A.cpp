@@ -14,10 +14,10 @@ int read(){
     return x*f;
 }
 int main(){
-    int t=clock();
-    vector<int> r(4,1);cout<<r[2]<<endl;
-    r.resize(0);r.resize(5);
-    cout<<r[2]<<endl;
-    printf("time: %.6f s\n",(clock()-t)/1000.0);
+    int t=read();
+    while(t--){
+        int n=read();
+        cout<<1<<" "<<n-1<<endl;
+    }
     return 0;
 }

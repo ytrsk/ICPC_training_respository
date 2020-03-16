@@ -13,11 +13,29 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
+int s[maxn],z[20];
+struct xxj{
+	int a[20];
+	void insert(int x){
+		for(int i=19;~i;--i){
+			if(x&(1<<i)){
+				if(a[i]) x^=a[i];
+				else{
+					a[i]=x;
+					break;
+				}
+			}
+		}
+	}
+	int query(){
+		int ans=0;
+		for(int i=19;~i;i--){
+			if(!(ans&z[i])) ans^=a[i];
+		}
+		return ans;
+	}
+}a[maxn<<1];
+int n=0;
 int main(){
-    int t=clock();
-    vector<int> r(4,1);cout<<r[2]<<endl;
-    r.resize(0);r.resize(5);
-    cout<<r[2]<<endl;
-    printf("time: %.6f s\n",(clock()-t)/1000.0);
     return 0;
 }

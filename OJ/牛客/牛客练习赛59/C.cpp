@@ -14,10 +14,18 @@ int read(){
     return x*f;
 }
 int main(){
-    int t=clock();
-    vector<int> r(4,1);cout<<r[2]<<endl;
-    r.resize(0);r.resize(5);
-    cout<<r[2]<<endl;
-    printf("time: %.6f s\n",(clock()-t)/1000.0);
+    int t=read();
+    while(t--){
+        ll x=read();ll y=read();
+        if(x/2<=y/3) printf("%lld\n",x/2);
+        else if(x/4<=y){
+            ll z=(3*x-2*y)/10;
+            ll j=min((y-z)/3,(x-4*z)/2);
+            ll z1=(3*x-2*y)/10+1;
+            ll j1=min((y-z1)/3,(x-4*z1)/2);
+            printf("%lld\n",max(z+j,z1+j1));
+        }
+        else printf("%lld\n",y);
+    }
     return 0;
 }

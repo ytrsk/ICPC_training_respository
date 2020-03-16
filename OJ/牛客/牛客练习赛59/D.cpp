@@ -14,10 +14,21 @@ int read(){
     return x*f;
 }
 int main(){
-    int t=clock();
-    vector<int> r(4,1);cout<<r[2]<<endl;
-    r.resize(0);r.resize(5);
-    cout<<r[2]<<endl;
-    printf("time: %.6f s\n",(clock()-t)/1000.0);
+    int t=read();
+    while(t--){
+        ll n=read();
+        int ok=0;
+        if(n>=2){
+            ll now=2,sum=3;ok=1;
+            while(n>sum){
+                if(ok) now=now*2-1; 
+                else now=now*2+1;
+                sum+=now;
+                ok^=1;
+            }
+        }
+        if(ok) printf("XiaoHuiHui\n");
+        else printf("XiaoQiao\n");
+    }
     return 0;
 }
