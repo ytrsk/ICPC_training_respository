@@ -24,6 +24,37 @@ inline int pown(int a,int b){
 	}
 	return res;
 }
+struct cn{
+    int x,y,w;
+    cn operator * (cn a){
+        cn ans;
+        ans.x=(1LL*x*a.x%mod+1LL*y*a.y%mod*w%mod)%mod;
+        ans.y=(1LL*x*a.y%mod+1LL*y*a.x%mod)%mod;
+        ans.w=w;
+        return ans;
+    }
+    int operator ^ (int b){
+        cn ans,x=*this;ans.x=1;ans.y=0;ans.w=w;
+        while(b){
+            if(b&1) ans=ans*x;
+            x=x*x;
+            b>>=1;
+        }
+        return ans.x;
+    }
+};
+int sqrt_mod(int n){
+    if(n==0) return 0;
+    if(pown(n,(mod-1)/2)==mod-1) return -1;
+    int a,w;
+    while(1){
+        a=rand()%mod;
+        w=(1LL*a*a-n+mod)%mod;
+        if(pown(w,(mod-1)/2)==mod-1) break;
+    }
+    cn x;x.x=a;x.y=1;x.w=w;
+    return x^((mod+1)/2);
+}
 typedef vector<int> Poly;
 inline void print(cs Poly &a,char c=' '){
 	for(re int i=0;i<a.size();++i) cout<<a[i]<<c;
@@ -132,7 +163,7 @@ inline Poly Sin(cs Poly &a,int lim){
 inline Poly Sin(cs Poly &a){return Sin(a,a.size());}
 
 inline Poly Sqrt(cs Poly &a,int lim){
-	Poly c,d,b(1,1);
+	Poly c,d,b(1,sqrt_mod(a[0]));
 	for(int re l=4;(l>>2)<lim;l<<=1){
 		init_rev(l);
 		c=a,c.resize(l>>1);
