@@ -204,12 +204,12 @@ inline Poly operator % (const Poly &a,const Poly &b){
 inline void init_inv(){
 	inv[0]=inv[1]=1;
 	for(re int i=2;i<maxn;++i)inv[i]=mul(inv[mod%i],mod-mod/i);
-
+}
 int main(){
 	init_inv();
-    int n=read();
-    Poly(n);
-    for
-    
+    int n=read();long double x=n;
+    long double y=x*(x+1)/2/(2*x-1);
+    double now=y;
+    printf("%.9f",now);
 	return 0;
 }
