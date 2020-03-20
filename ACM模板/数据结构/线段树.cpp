@@ -18,7 +18,7 @@ void pushup(int o){
     mx[o]=max(mx[o<<1],mx[o<<1|1]);
 }
 void pushdown(int o){
-    if(tag[o]){
+    if(tag[o]!=0){
         mx[o<<1]+=tag[o];mx[o<<1|1]+=tag[o];
         tag[o<<1]+=tag[o];tag[o<<1|1]+=tag[o];
         tag[o]=0;
@@ -48,8 +48,8 @@ void update(int o,int l,int r,int ql,int qr,int x){
     pushdown(o);
     int m=(l+r)>>1;
     if(ql<=m&&qr>m) update(o<<1,l,m,ql,m,x),update(o<<1|1,m+1,r,m+1,qr,x);
-    else if(ql<=m) update(o<<1,l,m,ql,qr);
-    else update(o<<1|1,m+1,r,ql,qr);
+    else if(ql<=m) update(o<<1,l,m,ql,qr,x);
+    else update(o<<1|1,m+1,r,ql,qr,x);
     pushup(o);
 }
 int main(){
