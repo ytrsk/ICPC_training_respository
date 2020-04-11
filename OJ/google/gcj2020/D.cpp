@@ -14,27 +14,59 @@ int read(){
     return x*f;
 }
 int query(int x){
-    cout<<x<<endl;
-    int ans;cin>>ans;
+    cout<<x<<endl;fflush(stdout);
+    int ans;scanf("%d",&ans);
     return ans;
 }
-map<string,int> aa;
+int val[maxn],ans[maxn],t,B;
+void rev(){
+    for(int i=1;i<=B;i++) ans[i]^=1;
+}
+void swap(){
+    for(int i=1;i<=B/2;i++) swap(ans[i],ans[B-i+1]);
+}
 int main(){
-    int t,B;scanf("%d%d",&t,&B);
+    cin>>t>>B;
     while(t--){
-        aa.clear();string r;
-        for(int i=1;i<=150/B;i++){
-            string s;
-            for(int k=1;k<=B;k++){
-                int x=query(k);
-                s.insert(s.begin(),x+'0');
+        for(int i=1;i<=B;i++) ans[i]=0;
+        int x=-1,y=-1,tot=0;
+        for(int i=1;;i++){
+            if(tot>1&&tot%10==0){
+                if(y==-1){
+                    if(query(x)^ans[x]){
+                        rev();
+                    }
+                    query(1);
+                }
+                else{
+                    if(query(y)^ans[y]){
+                        if(x==-1) query(1),rev();
+                        else{
+                            if(query(x)^ans[x]) rev();
+                            else swap();
+                        }
+                    }
+                    else{
+                        if(~x){
+                            if(query(x)^ans[x]) rev(),swap();
+                        }
+                        else query(1);
+                    }
+                }
+                tot+=2;
             }
-            aa[s]=1;r=s;
+            if(tot==150) break;
+            int X=(i-1)%(B/2)+1;
+            ans[X]=query(X),ans[B-X+1]=query(B-X+1);
+            if(ans[X]==ans[B-X+1]) x=X;
+            else y=X;
+            tot+=2;
+            if(tot==150) break;
         }
-        reverse(r.begin(),r.end());
-        cout<<r<<"\n";
-        string ss;fflush(stdout);
-        cin>>ss;
+        for(int i=1;i<=B;i++) printf("%d",ans[i]);
+        printf("\n");
+        fflush(stdout);
+        string ss;cin>>ss;
         if(ss=="Y") continue;
         else return 0;
     }
