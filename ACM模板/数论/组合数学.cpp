@@ -23,16 +23,16 @@ int pown(int a,int b){
     }
     return ans;
 }
-void add(int &x,int y){
+int add(int x,int y){
     x+=y;
-    if(x>=mod) x-=mod;
+    if(x>=mod) x-=mod;return x;
 }
 int mul(int x,int y){
     return 1LL*x*y%mod;
 }
-void del(int x,int y){
-    x-=y;
-    if(x<0) x+=mod;
+int dec(int x,int y){
+    x-=y;if(x<0) x+=mod;
+    return x;
 }
 int fac[maxn],inv[maxn];
 int C(int a,int b){
@@ -41,7 +41,7 @@ int C(int a,int b){
 }
 int main(){
     fac[0]=inv[0]=1;
-    int N=2000000;
+    int N=1000000;
     for(int i=1;i<=N;i++) fac[i]=1LL*fac[i-1]*i%mod;
     inv[N]=pown(fac[N],mod-2);
     for(int i=N-1;i;i--) inv[i]=1LL*inv[i+1]*(i+1)%mod;
