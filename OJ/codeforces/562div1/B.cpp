@@ -4,7 +4,7 @@
 using namespace std;
 typedef pair<int,int> pii;
 typedef long long ll;
-const int maxn=100007;
+const int maxn=300007;
 const ll inf=1<<29;
 int read(){
     int x=0,f=1;
