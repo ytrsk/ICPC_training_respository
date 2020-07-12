@@ -1,217 +1,103 @@
-#include <bits/stdc++.h>
-#define mp make_pair
-#define sqr(x) (x)*(x)
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+#include <algorithm>
+#include <math.h>
+#include <vector>
+#include <queue>
 using namespace std;
-typedef pair<int,int> pii;
 typedef long long ll;
 const int maxn=100007;
-const ll inf=1<<29;
+const ll inf=(1LL<<60);
+int cur[maxn],vis[maxn],head[maxn],d[maxn];
+int e1,to[maxn<<1],nex[maxn<<1],from[maxn<<1];ll cap[maxn<<1],n;
+int s,t;
 int read(){
-    int x=0,f=1;
-    char ch=getchar();
-    while(ch<'0'||ch>'9') {if(ch=='-') f=-1;ch=getchar();}
-    while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
-    return x*f;
+    int x=0;int f=1;
+    char c=getchar();
+    while(c<'0'||c>'9'){
+        if(c=='-') f=-1;c=getchar();
+    }
+    while(c>='0'&&c<='9') x=x*10+c-'0',c=getchar();
+    x*=f;return x;
 }
-int a[maxn],b[5];
-int ha[maxn],vis[maxn];
-int c3(int x){
-    return x*(x-1)*(x-2)/6;
+bool bfs(){
+	for(int i=1;i<=n;i++) vis[i]=0,d[i]=-1;
+	queue<int> q;
+	q.push(s);d[s]=0;vis[s]=1;
+	while(!q.empty()){
+		int u=q.front();q.pop();
+		for(int i=head[u];i;i=nex[i]){
+			int v=to[i];
+			if(!vis[v]&&cap[i]){
+				vis[v]=1;
+				d[v]=d[u]+1;q.push(v);
+			}
+		}
+	}
+	return vis[t];
 }
-int c2(int x){
-    return x*(x-1)/2;
+ll dfs(int u,ll now){
+	if(u==t||now==0) return now;
+	ll ans=0,f;
+	for(int &i=cur[u];i;i=nex[i]){
+		int v=to[i];
+		if(d[u]+1==d[v]&&(f=dfs(v,min(now,cap[i])))>0){
+			cap[i]-=f;
+			cap[i^1]+=f;
+			ans+=f;
+			now-=f;
+			if(!now) break;
+		}
+	}
+	return ans;
 }
-int sum[307][307];
+ll dinic(){
+	ll ans=0;
+	while(bfs()){
+		for(int i=1;i<=n;i++)
+        cur[i]=head[i];
+		ans+=dfs(s,inf);
+	}
+	return ans;
+}
+void addedge(int u,int v,ll c){
+	++e1;from[e1]=u;nex[e1]=head[u];
+	head[u]=e1;to[e1]=v;cap[e1]=c;
+}
+void add(int u,int v,ll c){
+	addedge(u,v,c);addedge(v,u,0);
+}
+int A[maxn];
+void init(){
+	for(int i=1;i<=n;i++) head[i]=0,A[i]=0;
+	for(int i=1;i<=e1;i++) to[i]=0;e1=1;
+}
+void Add(int u,int v,ll l,ll r){
+	A[u]-=l;A[v]+=l;add(u,v,r-l);
+}
+int you[maxn];ll L[maxn],R[maxn];
 int main(){
-    int n=read();
-    for(int i=1;i<=n;i++) a[i]=read(),ha[i]=a[i];
-    for(int i=1;i<5;i++) b[i]=read();
-    sort(ha+1,ha+n+1);
-    int len=unique(ha+1,ha+n+1)-a-1;
-    long long ans=0;
-    for(int i=1;i<=n;i++) a[i]=lower_bound(ha+1,ha+n+1,a[i])-ha;
-    for(int i=1;i<=n;i++){
-        for(int k=1;k<=n;k++) sum[i][k]=sum[i-1][k]+(a[i]==k);
-    }
-    if(b[1]==b[2]&&b[3]==b[4]&&b[1]==b[3]){
-        for(int i=1;i<=n;i++){
-            if(vis[a[i]]>=3) ans+=c3(vis[a[i]]);
-            vis[a[i]]++;
-        }
-    }
-    else if(b[1]==b[2]&&b[2]==b[3]){
-        for(int i=1;i<=n;i++){
-            for(int k=1;k<=n;k++){
-                if(k!=a[i]){
-                    int left=sum[i-1][k],right=sum[n][k]-sum[i][k];
-                    if(left>=3) ans+=c3(left);    
-                }
-            }
-        }
-    }
-    else if(b[1]==b[2]&&b[2]==b[4]){
-        for(int i=1;i<=n;i++){
-            for(int k=1;k<=n;k++){
-                if(k!=a[i]){
-                    int left=sum[i-1][k],right=sum[n][k]-sum[i][k];
-                    if(left>=2&&right>=1) ans+=c2(left)*right;    
-                }
-            }
-        }
-    }
-    else if(b[1]==b[3]&&b[3]==b[4]){
-        for(int i=1;i<=n;i++){
-            for(int k=1;k<=n;k++){
-                if(k!=a[i]){
-                    int left=sum[i-1][k],right=sum[n][k]-sum[i][k];
-                    if(left>=1&&right>=2) ans+=left*c2(right);    
-                }
-            }
-        }
-    }
-    else if(b[2]==b[3]&&b[3]==b[4]){
-        for(int i=1;i<=n;i++){
-            for(int k=1;k<=n;k++){
-                if(k!=a[i]){
-                    int right=sum[n][k]-sum[i][k];
-                    if(right>=3) ans+=c3(right);    
-                }
-            }
-        }
-    }
-    else if(b[1]==b[2]){
-        for(int i=1;i<=n;i++){
-            for(int k=1;k<=n;k++){
-                for(int z=1;z<=n;z++){
-                    if(b[3]!=b[4]){
-                        if(k!=a[i]&&k!=z&&a[i]!=z){
-                            int left=sum[i-1][k],right=sum[n][z]-sum[i][z];
-                            if(left>=2) ans+=c2(left)*right;
-                        }
-                    }
-                    else{
-                        if(k!=a[i]&&a[i]==z){
-                            int left=sum[i-1][k],right=sum[n][z]-sum[i][z];
-                            if(left>=2) ans+=c2(left)*right;
-                        }   
-                    }
-                }
-            }
-        }
-    }
-    else if(b[2]==b[3]){
-        for(int i=1;i<=n;i++){
-            for(int k=i+1;k<=n;k++){
-                for(int z=1;z<=n;z++){
-                    if(b[1]!=b[4]){
-                        if(a[i]!=a[k]&&a[i]!=z&&a[k]!=z){
-                            int mid=sum[k-1][z]-sum[i][z];
-                            if(mid>=2) ans+=c2(mid);
-                        }
-                    }
-                    else{
-                        if(a[i]==a[k]&&a[i]!=z&&a[k]!=z){
-                            int mid=sum[k-1][z]-sum[i][z];
-                            if(mid>=2) ans+=c2(mid);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else if(b[1]==b[4]){
-        for(int i=1;i<=n;i++){
-            for(int k=i+1;k<=n;k++){
-                for(int z=1;z<=n;z++){
-                    if(b[2]!=b[3]){
-                        if(a[i]!=z&&a[k]!=z&&a[i]!=a[k]){
-                            int left=sum[i-1][z],right=sum[n][z]-sum[k][z];
-                            ans+=left*right;
-                        }
-                    }
-                    else{
-                        if(a[i]!=z&&a[k]!=z&&a[i]==a[k]){
-                            int left=sum[i-1][z],right=sum[n][z]-sum[k][z];
-                            ans+=left*right;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else if(b[2]==b[4]){
-        for(int i=1;i<=n;i++){
-            for(int k=i+1;k<=n;k++){
-                for(int z=1;z<=n;z++){
-                    if(b[1]!=b[3]){
-                        if(a[i]!=z&&a[k]!=z&&a[i]!=a[k]){
-                            int left=sum[k-1][z]-sum[i][z],right=sum[n][z]-sum[k][z];
-                            ans+=left*right;
-                        }
-                    }
-                    else{
-                        if(a[i]!=z&&a[k]!=z&&a[i]==a[k]){
-                            int left=sum[k-1][z]-sum[i][z],right=sum[n][z]-sum[k][z];
-                            ans+=left*right;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else if(b[1]==b[3]){
-        for(int i=1;i<=n;i++){
-            for(int k=i+1;k<=n;k++){
-                for(int z=1;z<=n;z++){
-                    if(b[2]!=b[4]){
-                        if(a[i]!=z&&a[k]!=z&&a[i]!=a[k]){
-                            int left=sum[i-1][z],right=sum[k-1][z]-sum[i][z];
-                            ans+=left*right;
-                        }
-                    }
-                    else{
-                        if(a[i]!=z&&a[k]!=z&&a[i]==a[k]){
-                            int left=sum[i-1][z],right=sum[k-1][z]-sum[i][z];
-                            ans+=left*right;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else if(b[3]==b[4]){
-        for(int i=1;i<=n;i++){
-            for(int k=1;k<=n;k++){
-                for(int z=1;z<=n;z++){
-                    if(b[1]!=b[2]){
-                        if(k!=a[i]&&k!=z&&a[i]!=z){
-                            int left=sum[i-1][k],right=sum[n][z]-sum[i][z];
-                            if(right>=2) ans+=left*c2(right);
-                        }
-                    }
-                    else{
-                        if(k==a[i]&&k!=z&&a[i]!=z){
-                            int left=sum[i-1][k],right=sum[n][z]-sum[i][z];
-                            if(right>=2) ans+=left*c2(right);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else{
-        for(int i=1;i<=n;i++){
-            for(int k=i+1;k<=n;k++){
-                if(a[i]!=a[k])
-                for(int z=1;z<=n;z++){
-                    if(z!=a[i]&&z!=a[k]){
-                        int left=i-1-sum[i-1][a[i]]-sum[i-1][a[k]]-sum[i-1][z],right=sum[n][z]-sum[k][z];
-                        ans+=left*right;
-                    }
-                }
-            }
-        }
-    }
-    cout<<ans;
-    return 0;
+	int cnt=1;
+	while(cnt--){
+        int N=read(),m=read();
+        int SS,TT,S,T;
+		n=N+4;S=n-3;T=n-2;SS=n-1;TT=n;
+		init();
+		//Add ...
+		for(int i=1;i<=n-2;i++)
+        if(A[i]>0) add(SS,i,A[i]);
+        else if(A[i]<0) add(i,TT,-A[i]);
+		add(T,S,inf);
+		s=SS;t=TT;
+		dinic();
+		int ok=1;for(int i=head[SS];i;i=nex[i]) if(cap[i]) ok=0;
+		if(!ok) printf("Impossible\n");
+		else{
+			s=T;t=S;ll ans=cap[e1];cap[e1^1]=cap[e1]=0;
+			printf("%lld\n",ans-dinic());
+			for(int i=1;i<=m;i++) printf("%lld%c",L[i]+cap[you[i]],i==m?'\n':' ');
+		}
+	}
+	return 0;
 }
