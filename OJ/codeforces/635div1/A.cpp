@@ -26,7 +26,7 @@ void dfs(int u,int fa){
     }
     R[u]=e1;sz[u]=R[u]-L[u];
 }
-int cnp(int a,int b){
+int cmp(int a,int b){
     return d[a]-sz[a]>d[b]-sz[b];
 }
 int main(){
@@ -39,7 +39,7 @@ int main(){
     dfs(1,0);
     ll ans=0;
     for(int i=1;i<=n;i++) L[i]=i;
-    sort(L+1,L+n+1,cnp);
+    sort(L+1,L+n+1,cmp);
     for(int i=1;i<=m;i++) ans+=d[L[i]]-sz[L[i]];
     cout<<ans;
     return 0;

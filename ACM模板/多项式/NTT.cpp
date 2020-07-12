@@ -9,7 +9,7 @@
 using namespace std;
 typedef long long ll;
 const int maxn=200007;
-const int mod=479*(1<<21)+1,G=3;
+const int mod=998244353,G=3;
 int rev[maxn<<2];
 ll pown(ll a,ll b){
 	if(b<0){
