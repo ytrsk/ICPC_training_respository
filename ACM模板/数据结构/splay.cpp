@@ -76,10 +76,10 @@ void del(int x){
 }
 void ins(int &o,int p,int x){
     if(!o){
-        o=++e1;val[o]=x;fa[o]=p;tr[o][0]=tr[o][1]=0;
+        o=++e1;val[o]=x;fa[o]=p;tr[o][0]=tr[o][1]=0;sz[o]=1;
         splay(o,rt);return;
     }
-    ins(tr[x>val[o]][1],o,x);
+    ins(tr[o][x>val[o]],o,x);
     pushup(o);
 }
 int query_pre(int o){

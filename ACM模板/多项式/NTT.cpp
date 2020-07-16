@@ -9,7 +9,7 @@
 using namespace std;
 typedef long long ll;
 const int maxn=200007;
-const int mod=479*(1<<21)+1,G=3;
+const int mod=998244353,G=3;
 int rev[maxn<<2];
 ll pown(ll a,ll b){
 	if(b<0){
@@ -46,6 +46,8 @@ void nttmul(ll *a,ll *b,int l1,int l2){
 	int bit=1;
 	while((1<<bit)<=l1+l2) bit++;
 	for(int i=0;i<(1<<bit);i++) rev[i]=(rev[i>>1]>>1)|((i&1)<<(bit-1));
+	for(int i=l1+1;i<(1<<bit);i++) a[i]=0;
+	for(int i=l2+1;i<(1<<bit);i++) b[i]=0;
 	ntt(a,1<<bit,1);ntt(b,1<<bit,1);
 	for(int i=0;i<(1<<bit);i++) a[i]=(a[i]*b[i])%mod;
 	ntt(a,1<<bit,-1);

@@ -2,4 +2,5 @@
 cloud/
 testdata/
 OJ/**/*.exe
-project/
+ACM模板/**/*.exe
+**/tempCodeRunnerFile.cpp

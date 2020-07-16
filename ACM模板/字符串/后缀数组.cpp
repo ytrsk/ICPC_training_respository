@@ -32,6 +32,9 @@ void geth(){
         h[rk[now][i]]=l1;if(l1>0) l1--;
     }
 }
+void init(){
+    for(int i=1;i<=30;i++) v[i]=0;
+}
 int main(){
 	scanf("%s",s+1);n=strlen(s+1);
 	for(int i=1;i<=n;i++) a[i]=s[i]-'a'+1;
