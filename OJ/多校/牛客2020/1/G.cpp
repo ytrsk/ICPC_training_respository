@@ -13,9 +13,15 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
+const int mod=998244353;
+int v[maxn][3];
 int main(){
     int n=read(),m=read(),q=read();
     unsigned z=read(),a=read(),b=read();
-    for()
+    for(int i=1;i<=n;i++)
+    for(int j=0;j<3;j++){
+        z=z*a+b;
+        v[i][j]=z%mod;
+    }
     return 0;
 }
