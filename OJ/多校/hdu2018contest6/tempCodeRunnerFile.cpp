@@ -1,1 +1,0 @@
-if(i==3&&k==4) cout<<now<<" "<<mn[i][k]<<" "<<mx[i][k]<<endl;
