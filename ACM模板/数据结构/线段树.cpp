@@ -31,7 +31,7 @@ void build(int o,int l,int r){
     }
     int m=(l+r)>>1;
     build(o<<1,l,m);build(o<<1|1,m+1,r);
-    pushup(o,l,r);
+    pushup(o);
 }
 int query(int o,int l,int r,int ql,int qr){
     if(l==ql&&r==qr) return mx[o];
@@ -43,7 +43,7 @@ int query(int o,int l,int r,int ql,int qr){
 }
 void update(int o,int l,int r,int ql,int qr,int x){
     if(l==ql&&r==qr){
-        sum[o]+=x;tag[o]+=x;return;
+        mx[o]+=x;tag[o]+=x;return;
     }
     pushdown(o);
     int m=(l+r)>>1;
