@@ -16,7 +16,19 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
-int main(){
+int sz[maxn];
+void dfs(int u,int fa){
     
+}
+
+int main(){
+    int t=read();
+    while(t--){
+        int n=read(),m=read();
+        for(int i=1;i<n;i++){
+            int u=read(),v=read();0
+            addedge()
+        }
+    }
     return 0;
 }
