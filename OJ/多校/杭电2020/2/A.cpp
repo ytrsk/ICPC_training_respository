@@ -41,7 +41,7 @@ int main(){
                 int rt=find(v);
                 if(find(u)!=rt&&a[rt]>=a[u]){
                     ans-=a[u];
-                    fa[find(u)]=rt;    
+                    fa[find(u)]=rt;
                 }
             }
         }
