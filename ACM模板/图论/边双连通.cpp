@@ -57,7 +57,6 @@ inline int read(){
 int main(){
     int m;
     scanf("%d%d",&n,&m);
-    init();
     for(int i=1;i<=m;++i){
         int u,v;scanf("%d%d",&u,&v);
         addedge(u,v);addedge(v,u);
@@ -79,5 +78,6 @@ int main(){
             }
         }
     }
+    init();
     return 0;
 }
