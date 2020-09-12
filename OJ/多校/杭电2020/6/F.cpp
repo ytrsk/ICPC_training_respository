@@ -13,16 +13,24 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
-int mu[maxn],phi[maxn],sum[maxn];
-int len,p[maxn];
+int a[maxn];
+int e1,head[maxn],to[maxn<<1],nex[maxn<<1];
+int fa[maxn],sz[maxn];
+void addedge(int u,int v){
+    ++e1;nex[e1]=head[u];head[u]=e1;to[e1]=v;
+}
+void merge(int u,int v){
+    
+}
 int main(){
-    mu[1]=1;phi[1]=1;
-    for(int i=2;i<=200000;i++){
-        if(!phi[i]) p[++len]=i,mu[i]=-1,phi[i]=i-1;
-        for(int k=1;k<=len&&i*p[k]<=200000;k++){
-            if(i%p[k]!=0) phi[i*p[k]]=phi[i]*phi[p[k]],mu[i*p[k]]=mu[i]*mu[p[k]];
-            else {phi[i*p[k]]=phi[i]*p[k],mu[i*p[k]]=0;break;}
-        }
+    int t=read();
+    while(t--){
+    int n=read(),m=read();
+    for(int i=1;i<=n;i++) a[i]=read();
+    for(int i=1;i<=m;i++){
+        int u=read(),v=read();
+        merge(u,v);
+    }
     }
     return 0;
 }

@@ -8,7 +8,7 @@
 using namespace std;
 typedef long long ll;
 const int maxn=100007;
-int e1,ls[maxn*200],rs[maxn*200],sum[maxn*200],root[maxn];ll tot[maxn*200];
+int e1,ls[maxn*200],rs[maxn*200],sum[maxn*200],rt[maxn];ll tot[maxn*200];
 int merge(int x,int y){
 	if(!x||!y) return x+y;
 	int now=++e1;
@@ -22,14 +22,14 @@ void pushup(int o){
 	sum[o]=sum[ls[o]]+sum[rs[o]];
 	tot[o]=tot[ls[o]]+tot[rs[o]];
 }
-void insert(int &o,int l,int r,int x,int y){
-	if(!o) o=++e1;
+void ins(int &o,int l,int r,int x,int y){
+	if(!o) o=++e1,sum[o]=0,tot[o]=0;
 	if(l==r){
 		sum[o]+=y;tot[o]+=l*y;return;
 	}
 	int mid=(l+r)>>1;
-	if(x<=mid) insert(ls[o],l,mid,x,y);
-	else insert(rs[o],mid+1,r,x,y);
+	if(x<=mid) ins(ls[o],l,mid,x,y);
+	else ins(rs[o],mid+1,r,x,y);
 	pushup(o);
 }
 ll query(int x,int l,int r,int z){

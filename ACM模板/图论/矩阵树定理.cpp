@@ -10,7 +10,7 @@ typedef long long ll;
 const ll mod=1e9;
 const double eps=1e-7;
 const int maxn=57;
-ll a[maxn][maxn],n;
+ll a[maxn][maxn];
 ll gauss_ll(){
 	ll ans=1;
 	for(int i=1;i<=n;i++){

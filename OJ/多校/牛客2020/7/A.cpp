@@ -4,7 +4,7 @@
 using namespace std;
 typedef pair<int,int> pii;
 typedef long long ll;
-const int maxn=200007;
+const int maxn=100007;
 const ll inf=1<<29;
 int read(){
     int x=0,f=1;
@@ -13,15 +13,21 @@ int read(){
     while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
     return x*f;
 }
-int mu[maxn],phi[maxn],sum[maxn];
-int len,p[maxn];
+int ans=0;
+void dfs(int o){
+    for()
+}
+for()
+int solve(int n,int r){
+    for(int i=1;i<=len;i++){
+        
+    }
+}
+int ans[9][31];
 int main(){
-    mu[1]=1;phi[1]=1;
-    for(int i=2;i<=200000;i++){
-        if(!phi[i]) p[++len]=i,mu[i]=-1,phi[i]=i-1;
-        for(int k=1;k<=len&&i*p[k]<=200000;k++){
-            if(i%p[k]!=0) phi[i*p[k]]=phi[i]*phi[p[k]],mu[i*p[k]]=mu[i]*mu[p[k]];
-            else {phi[i*p[k]]=phi[i]*p[k],mu[i*p[k]]=0;break;}
+    for(int i=1;i<=8;i++){
+        for(int k=1;k<=30;k++){
+            ans[i][k]=solve(i,k);
         }
     }
     return 0;

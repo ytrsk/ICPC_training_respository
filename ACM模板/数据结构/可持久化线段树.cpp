@@ -1,7 +1,22 @@
-#include <stdio.h>
-#include <algorithm>
+#include <bits/stdc++.h>
+#define mp make_pair
+#define sqr(x) (x)*(x)
 using namespace std;
-const int maxn=1000007;
+typedef pair<int,int> pii;
+typedef long long ll;
+const int maxn=100007;
+const ll inf=0x3f3f3f3f;
+const int mod=998244353;
+#define rep(i,x,y) for(auto i=(x);i<=(y);++i)
+#define dep(i,x,y) for(auto i=(x);i>=(y);--i)
+int read(){
+    int x=0,f=1;
+    char ch=getchar();
+    while(ch<'0'||ch>'9') {if(ch=='-') f=-1;ch=getchar();}
+    while(ch>='0'&&ch<='9') x=x*10+ch-'0',ch=getchar();
+    return x*f;
+}
+int a[maxn];
 int rt[100007],e1,a[100007],sum[2000007],ls[2000007],rs[2000007];
 void pushup(int o){
 	sum[o]=sum[ls[o]]+sum[rs[o]];
@@ -32,5 +47,6 @@ int query(int x,int y,int l,int r,int z){
 	else return query(rs[x],rs[y],m+1,r,z-(sum[ls[y]]-sum[ls[x]]));
 }
 int main(){
+
 	return 0;
 }
