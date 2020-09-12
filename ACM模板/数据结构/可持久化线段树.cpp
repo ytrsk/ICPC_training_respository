@@ -2,7 +2,7 @@
 #include <algorithm>
 using namespace std;
 const int maxn=1000007;
-int root[100007],e1,a[100007],sum[2000007],ls[2000007],rs[2000007];
+int rt[100007],e1,a[100007],sum[2000007],ls[2000007],rs[2000007];
 void pushup(int o){
 	sum[o]=sum[ls[o]]+sum[rs[o]];
 }
